@@ -24,7 +24,8 @@
 
 截图内容：Obsidian Graph View，展示由每日日报自动生成的知识网络。
 
-📸 建议截图：`screenshots/obsidian-graph-view.png`
+📸 建议截图：<img width="2560" height="1392" alt="image" src="https://github.com/user-attachments/assets/50f28e03-d53f-4508-bc41-b0b2c6fb11fd" />
+
 
 ---
 
