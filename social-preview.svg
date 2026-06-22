@@ -42,14 +42,14 @@
   <text x="114" y="82" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#c4b5fd">Open Source · OpenClaw</text>
 
   <!-- Title -->
-  <text x="80" y="130" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="52" font-weight="800" fill="#f8fafc" letter-spacing="-1.5">OpenClaw</text>
-  <text x="80" y="190" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="52" font-weight="800" fill="url(#titleGrad)" letter-spacing="-1.5">AI Daily</text>
+  <text x="80" y="145" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="52" font-weight="800" fill="#f8fafc" letter-spacing="-1.5">OpenClaw</text>
+  <text x="80" y="205" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="52" font-weight="800" fill="url(#titleGrad)" letter-spacing="-1.5">AI Daily</text>
 
   <!-- Subtitle -->
-  <text x="80" y="235" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="15" fill="#94a3b8">全自动 AI 前沿日报 + 知识问答 · 每天 8 分钟 · 搜索→出题→批改→知识图谱</text>
+  <text x="80" y="250" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="15" fill="#94a3b8">全自动 AI 前沿日报 + 知识问答 · 每天 8 分钟 · 搜索→出题→批改→知识图谱</text>
 
   <!-- Features with numbers -->
-  <g transform="translate(80, 265)">
+  <g transform="translate(80, 285)">
     <g><rect x="0" y="0" rx="4" width="22" height="22" fill="#8b5cf6" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#a78bfa" font-family="system-ui,sans-serif" text-anchor="middle">1</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">SerpAPI 搜索全球 AI 新闻，web_fetch 深度阅读</text></g>
     <g transform="translate(0, 30)"><rect x="0" y="0" rx="4" width="22" height="22" fill="#3b82f6" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#60a5fa" font-family="system-ui,sans-serif" text-anchor="middle">2</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">LLM 自动生成 10 道选择题（目标难度 60%）</text></g>
     <g transform="translate(0, 60)"><rect x="0" y="0" rx="4" width="22" height="22" fill="#10b981" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#34d399" font-family="system-ui,sans-serif" text-anchor="middle">3</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">Telegram 推送 + 答题批改 + 盲区分析</text></g>
@@ -57,9 +57,9 @@
   </g>
 
   <!-- CTA button -->
-  <rect x="80" y="420" rx="8" width="200" height="42" fill="#f59e0b"/>
-  <text x="180" y="447" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="14" font-weight="700" fill="#1a1a2e" text-anchor="middle">Star on GitHub</text>
-  <text x="300" y="446" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#64748b">15 分钟部署 · 零手工维护</text>
+  <rect x="80" y="440" rx="8" width="200" height="42" fill="#f59e0b"/>
+  <text x="180" y="467" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="14" font-weight="700" fill="#1a1a2e" text-anchor="middle">Star on GitHub</text>
+  <text x="300" y="466" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#64748b">15 分钟部署 · 零手工维护</text>
 
   <!-- Right Panel -->
   <rect x="840" y="40" rx="12" width="380" height="540" fill="#0f172a" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.1"/>
