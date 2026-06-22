@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="35%" stop-color="#1a1a3e"/>
+      <stop offset="65%" stop-color="#0d1b2a"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="50%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <linearGradient id="gridLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0.02"/>
+    </linearGradient>
+    <radialGradient id="orb1" cx="0.8" cy="0.2" r="0.5">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb2" cx="0.15" cy="0.8" r="0.5">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb3" cx="0.6" cy="0.55" r="0.4">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- BG -->
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M60 0V60M0 60H60" stroke="url(#gridLine)" fill="none"/>
+  </pattern>
+  <rect width="1280" height="640" fill="url(#grid)" opacity="0.5"/>
+
+  <!-- Orbs -->
+  <circle cx="1100" cy="100" r="300" fill="url(#orb1)"/>
+  <circle cx="150" cy="500" r="280" fill="url(#orb2)"/>
+  <circle cx="700" cy="400" r="220" fill="url(#orb3)"/>
+
+  <!-- Particles -->
+  <circle cx="120" cy="100" r="2" fill="#8b5cf6" opacity="0.5"><animate attributeName="cy" values="100;80;100" dur="8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.3;0.8;0.3" dur="8s" repeatCount="indefinite"/></circle>
+  <circle cx="1100" cy="160" r="2" fill="#8b5cf6" opacity="0.5"><animate attributeName="cy" values="160;140;160" dur="7s" repeatCount="indefinite" begin="1.5s"/></circle>
+  <circle cx="250" cy="400" r="2" fill="#8b5cf6" opacity="0.5"><animate attributeName="cy" values="400;380;400" dur="9s" repeatCount="indefinite" begin="3s"/></circle>
+  <circle cx="900" cy="480" r="2" fill="#8b5cf6" opacity="0.5"><animate attributeName="cy" values="480;460;480" dur="8s" repeatCount="indefinite" begin="4.5s"/></circle>
+  <circle cx="600" cy="250" r="2" fill="#8b5cf6" opacity="0.5"><animate attributeName="cy" values="250;230;250" dur="7.5s" repeatCount="indefinite" begin="2s"/></circle>
+
+  <!-- Badge -->
+  <rect x="80" y="70" rx="16" width="170" height="32" fill="#8b5cf6" fill-opacity="0.12" stroke="#8b5cf6" stroke-opacity="0.25"/>
+  <circle cx="100" cy="86" r="4" fill="#a78bfa"><animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/></circle>
+  <text x="114" y="92" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="13" fill="#c4b5fd">Open Source 路 OpenClaw</text>
+
+  <!-- Title -->
+  <text x="80" y="145" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="48" font-weight="800" fill="#f8fafc" letter-spacing="-1">OpenClaw</text>
+  <text x="80" y="200" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="48" font-weight="800" fill="url(#titleGrad)" letter-spacing="-1">AI Daily</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="240" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="16" fill="#94a3b8">馃 鍏ㄨ嚜鍔?AI 鍓嶆部鏃ユ姤 + 鐭ヨ瘑闂瓟 路 姣忓ぉ 8 鍒嗛挓 路 鎼滅储鈫掑嚭棰樷啋鎵规敼鈫掔煡璇嗗浘璋?/text>
+
+  <!-- Features -->
+  <g transform="translate(80, 270)">
+    <g transform="translate(0,0)"><rect rx="4" width="20" height="20" fill="#8b5cf6" opacity="0.18"/><text x="5" y="15" font-size="11" fill="#a78bfa">馃攳</text><text x="28" y="15" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="13" fill="#cbd5e1">SerpAPI 鎼滅储鍏ㄧ悆 AI 鏂伴椈锛寃eb_fetch 娣卞害闃呰</text></g>
+    <g transform="translate(0,28)"><rect rx="4" width="20" height="20" fill="#3b82f6" opacity="0.18"/><text x="5" y="15" font-size="11" fill="#60a5fa">鉁嶏笍</text><text x="28" y="15" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="13" fill="#cbd5e1">LLM 鑷姩鐢熸垚 10 閬撻�夋嫨棰橈紙鐩爣闅惧害 60%锛?/text></g>
+    <g transform="translate(0,56)"><rect rx="4" width="20" height="20" fill="#10b981" opacity="0.18"/><text x="5" y="15" font-size="11" fill="#34d399">馃摫</text><text x="28" y="15" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="13" fill="#cbd5e1">Telegram 鎺ㄩ�?+ 绛旈鎵规敼 + 鐩插尯鍒嗘瀽</text></g>
+    <g transform="translate(0,84)"><rect rx="4" width="20" height="20" fill="#f59e0b" opacity="0.18"/><text x="5" y="15" font-size="11" fill="#fbbf24">馃</text><text x="28" y="15" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="13" fill="#cbd5e1">鑷姩鍐欏叆 Obsidian 鐭ヨ瘑鍥捐氨锛屽弻鍚戦摼鎺?/text></g>
+  </g>
+
+  <!-- CTA -->
+  <rect x="80" y="410" rx="8" width="200" height="40" fill="#f59e0b"/>
+  <text x="180" y="436" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="14" font-weight="700" fill="#1a1a2e" text-anchor="middle">猸?Star on GitHub</text>
+  <text x="296" y="434" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="13" fill="#64748b">15 鍒嗛挓閮ㄧ讲 路 闆舵墜宸ョ淮鎶?/text>
+
+  <!-- Right Panel - Flow Diagram -->
+  <rect x="840" y="60" rx="12" width="380" height="510" fill="#0f172a" fill-opacity="0.6" stroke="#6366f1" stroke-opacity="0.12"/>
+
+  <text x="870" y="95" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="12" fill="#64748b" font-weight="600" letter-spacing="1">鈿?鑷姩鍖栨祦姘寸嚎</text>
+
+  <!-- Node 1 -->
+  <rect x="860" y="112" rx="6" width="340" height="52" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.08"/>
+  <rect x="872" y="122" rx="6" width="32" height="32" fill="#8b5cf6" opacity="0.18"/>
+  <text x="888" y="143" font-size="14" fill="#a78bfa" text-anchor="middle">鈴?/text>
+  <text x="916" y="138" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="12" fill="#e2e8f0">Cron 姣忔棩 20:00 瑙﹀彂</text>
+  <text x="916" y="154" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="10" fill="#64748b">闅旂浼氳瘽鑷姩鍚姩</text>
+
+  <!-- Arrow -->
+  <text x="1030" y="179" font-size="16" fill="#475569" text-anchor="middle">鈫?/text>
+
+  <!-- Node 2 -->
+  <rect x="860" y="184" rx="6" width="340" height="52" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.08"/>
+  <rect x="872" y="194" rx="6" width="32" height="32" fill="#3b82f6" opacity="0.18"/>
+  <text x="888" y="215" font-size="14" fill="#60a5fa" text-anchor="middle">馃攷</text>
+  <text x="916" y="210" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="12" fill="#e2e8f0">鎼滅储 + 闃呰鍏ㄧ悆鏂伴椈</text>
+  <text x="916" y="226" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="10" fill="#64748b">SerpAPI 鈫?web_fetch 娣卞害鎶撳彇</text>
+
+  <text x="1030" y="251" font-size="16" fill="#475569" text-anchor="middle">鈫?/text>
+
+  <!-- Node 3 -->
+  <rect x="860" y="256" rx="6" width="340" height="52" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.08"/>
+  <rect x="872" y="266" rx="6" width="32" height="32" fill="#10b981" opacity="0.18"/>
+  <text x="888" y="287" font-size="14" fill="#34d399" text-anchor="middle">馃И</text>
+  <text x="916" y="282" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="12" fill="#e2e8f0">LLM 鍑洪 + 鎺ㄩ�?/text>
+  <text x="916" y="298" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="10" fill="#64748b">10 棰?路 10 棰嗗煙 路 Telegram</text>
+
+  <text x="1030" y="323" font-size="16" fill="#475569" text-anchor="middle">鈫?/text>
+
+  <!-- Node 4 -->
+  <rect x="860" y="328" rx="6" width="340" height="52" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.08"/>
+  <rect x="872" y="338" rx="6" width="32" height="32" fill="#f59e0b" opacity="0.18"/>
+  <text x="888" y="359" font-size="14" fill="#fbbf24" text-anchor="middle">馃搳</text>
+  <text x="916" y="354" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="12" fill="#e2e8f0">绛旈 鈫?鎵规敼 鈫?鐩插尯鍒嗘瀽</text>
+  <text x="916" y="370" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="10" fill="#64748b">鑷姩璇勫垎 + 瀛︿範寤鸿</text>
+
+  <text x="1030" y="395" font-size="16" fill="#475569" text-anchor="middle">鈫?/text>
+
+  <!-- Node 5 -->
+  <rect x="860" y="400" rx="6" width="340" height="52" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.08"/>
+  <rect x="872" y="410" rx="6" width="32" height="32" fill="#ec4899" opacity="0.18"/>
+  <text x="888" y="431" font-size="14" fill="#f472b6" text-anchor="middle">馃</text>
+  <text x="916" y="426" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="12" fill="#e2e8f0">Obsidian 鐭ヨ瘑鍥捐氨</text>
+  <text x="916" y="442" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="10" fill="#64748b">姣忔棩鑷姩鐢熼暱 馃尡</text>
+
+  <!-- Footer -->
+  <text x="80" y="600" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="11" fill="#475569">Built with OpenClaw 路 Telegram 路 Obsidian 路 SerpAPI 路 DeepSeek</text>
+  <text x="1060" y="600" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="11" fill="#475569" text-anchor="end">github.com/fishflysky/openclaw-ai-daily</text>
+</svg>

@@ -1,0 +1,59 @@
+# OpenClaw AI Daily · Cron 任务配置
+
+这是驱动每日 AI 日报的核心配置文件。以下为模板，替换 `__YOUR_KEY__` 占位符后导入到 OpenClaw。
+
+```json
+{
+  "name": "AI前沿日报-每日推送",
+  "description": "每晚8点推送10道AI前沿选择题到Telegram，答题后自动评分+盲区分析",
+  "enabled": true,
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 20 * * *",
+    "tz": "Asia/Shanghai"
+  },
+  "sessionTarget": "isolated",
+  "wakeMode": "now",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "你是 AI 前沿日报生成助手（隔离会话）。请完整执行以下任务：\n\n## 第一步：获取日期\n用 exec 执行当前日期获取命令。\n\n## 第二步：搜索新闻\n用 SerpAPI Google engine 搜索最近一周的 AI 前沿新闻。\n搜索关键词：AI artificial intelligence latest news breakthroughs release\n参数：num=10, tbs=qdr:w, gl=us, hl=en\n\n## 第三步：深入阅读\n对搜索结果中 2-3 篇最有价值的文章链接，用 web_fetch 抓取全文。\n同时抓取：https://www.anthropic.com/research\n\n## 第四步：生成 10 道选择题\n基于真实新闻生成：\n- 10 道题，每题 4 个选项（1-4 编号）\n- 难度中等偏难，目标正确率 ~60%\n- 正确答案随机分布，干扰项合理\n- 领域覆盖：产业趋势、技术方向、重大发布、企业战略、政策治理、学术前沿、Agent/智能体、AI+科学、安全对齐、开源生态\n\n## 第五步：保存到 Obsidian\n用 write 工具把完整日报（含正确答案标记）写入 Obsidian vault。\n\n## 第六步：输出日报\n把日报完整输出在 final response 中，格式：\n\n📮 AI 前沿日报 · YYYY-MM-DD\n【第1题 · 领域】题目\n1. ... 2. ... 3. ... 4. ...\n...（10 题）\n📝 回复 1x 2x ... 10x\n\n---\n\n重要：你没有 message 工具，不需要尝试发送消息。只需把日报完整输出在 final response 中，保存 Obsidian 文件，然后正常结束即可。",
+    "fallbacks": [
+      "mimov25pro/mimo-v2.5-pro",
+      "deeek/deepseek-v4-flash"
+    ],
+    "timeoutSeconds": 300,
+    "lightContext": true
+  },
+  "delivery": {
+    "mode": "announce",
+    "channel": "telegram",
+    "to": "__YOUR_TELEGRAM_CHAT_ID__"
+  }
+}
+```
+
+## 导入方法
+
+```bash
+# 假设你已将上述 JSON 保存为 cron-job.json
+openclaw cron add --job "$(cat cron-job.json)"
+```
+
+## 配置关键字段
+
+| 字段 | 说明 | 示例 |
+|------|------|------|
+| `schedule.expr` | Cron 表达式，`tz` 时区 | `0 20 * * *` — 每晚 20:00 上海时间 |
+| `schedule.tz` | IANA 时区 | `Asia/Shanghai` |
+| `sessionTarget` | `isolated` — 独立会话，不污染主上下文 | `isolated` |
+| `delivery.channel` | 推送通道 | `telegram` |
+| `delivery.to` | 目标 Chat ID | `8944096717` |
+| `payload.fallbacks` | LLM fallback 链 | 见上方 |
+| `payload.timeoutSeconds` | 超时（含搜索+抓取） | 300 |
+
+## 自定义
+
+- **改推送时间**: 修改 `schedule.expr`，如 `0 8 * * *` 早上 8 点
+- **改推送通道**: 修改 `delivery.channel` 和 `delivery.to`
+- **改题目数量**: 在 `payload.message` 中修改
+- **改难度**: 在 prompt 中调整"目标正确率"
