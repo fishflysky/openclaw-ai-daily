@@ -8,7 +8,8 @@
 
 截图内容：Telegram 聊天界面，显示每日推送的 AI 日报（含 10 道选择题）。
 
-📸 建议截图：`screenshots/telegram-daily-push.png`
+📸 建议截图：<img width="2560" height="1392" alt="image" src="https://github.com/user-attachments/assets/ddcf6fce-86b2-4d33-a118-dc31e2c6c2fb" />
+
 
 ---
 
