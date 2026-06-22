@@ -15,7 +15,7 @@
       <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.15"/>
       <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="orb2" cx="0.15" cy="0.8" r="0.5">
+    <radialGradient id="orb2" cx="0.15" cy="0.75" r="0.5">
       <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.12"/>
       <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
     </radialGradient>
@@ -24,52 +24,63 @@
       <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
     </radialGradient>
   </defs>
+
   <rect width="1280" height="640" fill="url(#bg)"/>
+
   <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
     <path d="M60 0V60M0 60H60" stroke="#6366f1" stroke-opacity="0.04" fill="none"/>
   </pattern>
   <rect width="1280" height="640" fill="url(#grid)"/>
-  <circle cx="1100" cy="100" r="300" fill="url(#orb1)"/>
-  <circle cx="150" cy="500" r="280" fill="url(#orb2)"/>
-  <circle cx="700" cy="400" r="220" fill="url(#orb3)"/>
 
-  <rect x="80" y="60" rx="16" width="180" height="32" fill="#8b5cf6" fill-opacity="0.12" stroke="#8b5cf6" stroke-opacity="0.25"/>
+  <circle cx="1100" cy="100" r="320" fill="url(#orb1)"/>
+  <circle cx="150" cy="520" r="280" fill="url(#orb2)"/>
+  <circle cx="700" cy="380" r="240" fill="url(#orb3)"/>
+
+  <!-- Badge: wider pill to fully wrap "Open Source · OpenClaw" -->
+  <rect x="80" y="60" rx="16" width="215" height="32" fill="#8b5cf6" fill-opacity="0.12" stroke="#8b5cf6" stroke-opacity="0.25"/>
   <circle cx="100" cy="76" r="4" fill="#a78bfa"/>
   <text x="114" y="82" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#c4b5fd">Open Source · OpenClaw</text>
 
+  <!-- Title -->
   <text x="80" y="130" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="52" font-weight="800" fill="#f8fafc" letter-spacing="-1.5">OpenClaw</text>
   <text x="80" y="190" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="52" font-weight="800" fill="url(#titleGrad)" letter-spacing="-1.5">AI Daily</text>
 
-  <text x="80" y="230" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="15" fill="#94a3b8">全自动 AI 前沿日报 + 知识问答 · 每天 8 分钟 · 搜索→出题→批改→知识图谱</text>
+  <!-- Subtitle -->
+  <text x="80" y="235" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="15" fill="#94a3b8">全自动 AI 前沿日报 + 知识问答 · 每天 8 分钟 · 搜索→出题→批改→知识图谱</text>
 
-  <g transform="translate(80,260)">
-    <g><rect x="0" y="0" rx="4" width="22" height="22" fill="#8b5cf6" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#a78bfa" text-anchor="middle">1</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">SerpAPI 搜索全球 AI 新闻，web_fetch 深度阅读</text></g>
-    <g transform="translate(0,30)"><rect x="0" y="0" rx="4" width="22" height="22" fill="#3b82f6" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#60a5fa" text-anchor="middle">2</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">LLM 自动生成 10 道选择题（目标难度 60%）</text></g>
-    <g transform="translate(0,60)"><rect x="0" y="0" rx="4" width="22" height="22" fill="#10b981" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#34d399" text-anchor="middle">3</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">Telegram 推送 + 答题批改 + 盲区分析</text></g>
-    <g transform="translate(0,90)"><rect x="0" y="0" rx="4" width="22" height="22" fill="#f59e0b" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#fbbf24" text-anchor="middle">4</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">自动写入 Obsidian 知识图谱，双向链接</text></g>
+  <!-- Features with numbers -->
+  <g transform="translate(80, 265)">
+    <g><rect x="0" y="0" rx="4" width="22" height="22" fill="#8b5cf6" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#a78bfa" font-family="system-ui,sans-serif" text-anchor="middle">1</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">SerpAPI 搜索全球 AI 新闻，web_fetch 深度阅读</text></g>
+    <g transform="translate(0, 30)"><rect x="0" y="0" rx="4" width="22" height="22" fill="#3b82f6" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#60a5fa" font-family="system-ui,sans-serif" text-anchor="middle">2</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">LLM 自动生成 10 道选择题（目标难度 60%）</text></g>
+    <g transform="translate(0, 60)"><rect x="0" y="0" rx="4" width="22" height="22" fill="#10b981" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#34d399" font-family="system-ui,sans-serif" text-anchor="middle">3</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">Telegram 推送 + 答题批改 + 盲区分析</text></g>
+    <g transform="translate(0, 90)"><rect x="0" y="0" rx="4" width="22" height="22" fill="#f59e0b" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#fbbf24" font-family="system-ui,sans-serif" text-anchor="middle">4</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">自动写入 Obsidian 知识图谱，双向链接</text></g>
   </g>
 
+  <!-- CTA button -->
   <rect x="80" y="420" rx="8" width="200" height="42" fill="#f59e0b"/>
   <text x="180" y="447" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="14" font-weight="700" fill="#1a1a2e" text-anchor="middle">Star on GitHub</text>
   <text x="300" y="446" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#64748b">15 分钟部署 · 零手工维护</text>
 
+  <!-- Right Panel -->
   <rect x="840" y="40" rx="12" width="380" height="540" fill="#0f172a" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.1"/>
   <text x="870" y="72" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="11" fill="#64748b" font-weight="600" letter-spacing="1.5">自动化流水线</text>
 
-  <g transform="translate(860,90)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#8b5cf6" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#a78bfa" text-anchor="middle">1</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">Cron 每日 20:00 触发</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">隔离会话自动启动</text></g>
-  <text x="1030" y="158" font-size="18" fill="#475569" text-anchor="middle">↓</text>
+  <!-- Flow nodes -->
+  <g transform="translate(860, 90)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#8b5cf6" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#a78bfa" font-family="system-ui,sans-serif" text-anchor="middle">1</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">Cron 每日 20:00 触发</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">隔离会话自动启动</text></g>
+  <text x="1030" y="159" font-size="18" fill="#475569" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
 
-  <g transform="translate(860,162)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#3b82f6" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#60a5fa" text-anchor="middle">2</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">搜索 + 阅读全球新闻</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">SerpAPI → web_fetch 深度抓取</text></g>
-  <text x="1030" y="230" font-size="18" fill="#475569" text-anchor="middle">↓</text>
+  <g transform="translate(860, 163)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#3b82f6" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#60a5fa" font-family="system-ui,sans-serif" text-anchor="middle">2</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">搜索 + 阅读全球新闻</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">SerpAPI → web_fetch 深度抓取</text></g>
+  <text x="1030" y="232" font-size="18" fill="#475569" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
 
-  <g transform="translate(860,234)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#10b981" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#34d399" text-anchor="middle">3</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">LLM 出题 + 推送</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">10 题 · 10 领域 · Telegram</text></g>
-  <text x="1030" y="302" font-size="18" fill="#475569" text-anchor="middle">↓</text>
+  <g transform="translate(860, 236)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#10b981" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#34d399" font-family="system-ui,sans-serif" text-anchor="middle">3</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">LLM 出题 + 推送</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">10 题 · 10 领域 · Telegram</text></g>
+  <text x="1030" y="305" font-size="18" fill="#475569" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
 
-  <g transform="translate(860,306)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#f59e0b" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#fbbf24" text-anchor="middle">4</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">答题 → 批改 → 盲区分析</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">自动评分 + 学习建议</text></g>
-  <text x="1030" y="374" font-size="18" fill="#475569" text-anchor="middle">↓</text>
+  <g transform="translate(860, 309)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#f59e0b" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#fbbf24" font-family="system-ui,sans-serif" text-anchor="middle">4</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">答题 → 批改 → 盲区分析</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">自动评分 + 学习建议</text></g>
+  <text x="1030" y="378" font-size="18" fill="#475569" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
 
-  <g transform="translate(860,378)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#ec4899" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#f472b6" text-anchor="middle">5</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">Obsidian 知识图谱</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">每日自动生长</text></g>
+  <g transform="translate(860, 382)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#ec4899" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#f472b6" font-family="system-ui,sans-serif" text-anchor="middle">5</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">Obsidian 知识图谱</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">每日自动生长</text></g>
 
+  <!-- Footer -->
   <text x="80" y="605" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="11" fill="#475569">Built with OpenClaw · Telegram · Obsidian · SerpAPI · DeepSeek</text>
   <text x="1060" y="605" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="11" fill="#475569" text-anchor="end">github.com/fishflysky/openclaw-ai-daily</text>
 </svg>
