@@ -1,86 +1,194 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0a0a1a"/>
-      <stop offset="35%" stop-color="#1a1a3e"/>
-      <stop offset="65%" stop-color="#0d1b2a"/>
-      <stop offset="100%" stop-color="#0a0a1a"/>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#050510"/>
+      <stop offset="30%" stop-color="#0f0f2e"/>
+      <stop offset="60%" stop-color="#091422"/>
+      <stop offset="100%" stop-color="#050510"/>
     </linearGradient>
-    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#a78bfa"/>
-      <stop offset="50%" stop-color="#60a5fa"/>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c4b5fd"/>
+      <stop offset="40%" stop-color="#818cf8"/>
+      <stop offset="70%" stop-color="#60a5fa"/>
       <stop offset="100%" stop-color="#34d399"/>
     </linearGradient>
-    <radialGradient id="orb1" cx="0.8" cy="0.2" r="0.5">
-      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.15"/>
+    <linearGradient id="badgeBorder" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0.15"/>
+    </linearGradient>
+    <radialGradient id="orb1" cx="0.8" cy="0.15" r="0.55">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.12"/>
       <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="orb2" cx="0.15" cy="0.75" r="0.5">
-      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.12"/>
+    <radialGradient id="orb2" cx="0.12" cy="0.8" r="0.5">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.10"/>
       <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="orb3" cx="0.6" cy="0.55" r="0.4">
-      <stop offset="0%" stop-color="#10b981" stop-opacity="0.10"/>
+    <radialGradient id="orb3" cx="0.55" cy="0.5" r="0.45">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="nodeGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glowSm">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowLg">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
 
-  <rect width="1280" height="640" fill="url(#bg)"/>
+  <!-- BG -->
+  <rect width="1280" height="640" fill="url(#bgGrad)"/>
 
-  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-    <path d="M60 0V60M0 60H60" stroke="#6366f1" stroke-opacity="0.04" fill="none"/>
+  <!-- Subtle grid -->
+  <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+    <path d="M80 0V80M0 80H80" stroke="#6366f1" stroke-opacity="0.025" fill="none"/>
   </pattern>
   <rect width="1280" height="640" fill="url(#grid)"/>
 
-  <circle cx="1100" cy="100" r="320" fill="url(#orb1)"/>
-  <circle cx="150" cy="520" r="280" fill="url(#orb2)"/>
-  <circle cx="700" cy="380" r="240" fill="url(#orb3)"/>
+  <!-- Ambient orbs -->
+  <circle cx="1120" cy="80" r="350" fill="url(#orb1)"/>
+  <circle cx="120" cy="540" r="300" fill="url(#orb2)"/>
+  <circle cx="680" cy="370" r="260" fill="url(#orb3)"/>
 
-  <!-- Badge: wider pill to fully wrap "Open Source · OpenClaw" -->
-  <rect x="80" y="60" rx="16" width="215" height="32" fill="#8b5cf6" fill-opacity="0.12" stroke="#8b5cf6" stroke-opacity="0.25"/>
-  <circle cx="100" cy="76" r="4" fill="#a78bfa"/>
-  <text x="114" y="82" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#c4b5fd">Open Source · OpenClaw</text>
-
-  <!-- Title -->
-  <text x="80" y="145" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="52" font-weight="800" fill="#f8fafc" letter-spacing="-1.5">OpenClaw</text>
-  <text x="80" y="205" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="52" font-weight="800" fill="url(#titleGrad)" letter-spacing="-1.5">AI Daily</text>
-
-  <!-- Subtitle -->
-  <text x="80" y="250" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="15" fill="#94a3b8">全自动 AI 前沿日报 + 知识问答 · 每天 8 分钟 · 搜索→出题→批改→知识图谱</text>
-
-  <!-- Features with numbers -->
-  <g transform="translate(80, 285)">
-    <g><rect x="0" y="0" rx="4" width="22" height="22" fill="#8b5cf6" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#a78bfa" font-family="system-ui,sans-serif" text-anchor="middle">1</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">SerpAPI 搜索全球 AI 新闻，web_fetch 深度阅读</text></g>
-    <g transform="translate(0, 30)"><rect x="0" y="0" rx="4" width="22" height="22" fill="#3b82f6" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#60a5fa" font-family="system-ui,sans-serif" text-anchor="middle">2</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">LLM 自动生成 10 道选择题（目标难度 60%）</text></g>
-    <g transform="translate(0, 60)"><rect x="0" y="0" rx="4" width="22" height="22" fill="#10b981" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#34d399" font-family="system-ui,sans-serif" text-anchor="middle">3</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">Telegram 推送 + 答题批改 + 盲区分析</text></g>
-    <g transform="translate(0, 90)"><rect x="0" y="0" rx="4" width="22" height="22" fill="#f59e0b" opacity="0.18"/><text x="11" y="16" font-size="12" fill="#fbbf24" font-family="system-ui,sans-serif" text-anchor="middle">4</text><text x="30" y="16" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#cbd5e1">自动写入 Obsidian 知识图谱，双向链接</text></g>
+  <!-- Floating particles × 15 -->
+  <g>
+    <circle cx="80"  cy="120" r="1.5" fill="#a78bfa" opacity="0.6"><animate attributeName="cy" values="120;105;120" dur="6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;0.2;0.6" dur="6s" repeatCount="indefinite"/></circle>
+    <circle cx="180" cy="300" r="1.0" fill="#818cf8" opacity="0.4"><animate attributeName="cy" values="300;288;300" dur="8s" repeatCount="indefinite" begin="1s"/><animate attributeName="opacity" values="0.4;0.1;0.4" dur="8s" repeatCount="indefinite" begin="1s"/></circle>
+    <circle cx="450" cy="90"  r="1.5" fill="#60a5fa" opacity="0.5"><animate attributeName="cy" values="90;78;90" dur="7s" repeatCount="indefinite" begin="2s"/><animate attributeName="opacity" values="0.5;0.15;0.5" dur="7s" repeatCount="indefinite" begin="2s"/></circle>
+    <circle cx="700" cy="160" r="1.2" fill="#c4b5fd" opacity="0.5"><animate attributeName="cy" values="160;145;160" dur="5.5s" repeatCount="indefinite" begin="0.5s"/><animate attributeName="opacity" values="0.5;0.2;0.5" dur="5.5s" repeatCount="indefinite" begin="0.5s"/></circle>
+    <circle cx="1200" cy="250" r="1.0" fill="#a78bfa" opacity="0.4"><animate attributeName="cy" values="250;238;250" dur="7.5s" repeatCount="indefinite" begin="3s"/><animate attributeName="opacity" values="0.4;0.1;0.4" dur="7.5s" repeatCount="indefinite" begin="3s"/></circle>
+    <circle cx="1100" cy="420" r="1.5" fill="#34d399" opacity="0.35"><animate attributeName="cy" values="420;408;420" dur="6.5s" repeatCount="indefinite" begin="1.5s"/><animate attributeName="opacity" values="0.35;0.1;0.35" dur="6.5s" repeatCount="indefinite" begin="1.5s"/></circle>
+    <circle cx="60"  cy="480" r="1.2" fill="#818cf8" opacity="0.5"><animate attributeName="cy" values="480;465;480" dur="9s" repeatCount="indefinite" begin="4s"/><animate attributeName="opacity" values="0.5;0.15;0.5" dur="9s" repeatCount="indefinite" begin="4s"/></circle>
+    <circle cx="350" cy="520" r="1.0" fill="#60a5fa" opacity="0.4"><animate attributeName="cy" values="520;508;520" dur="7s" repeatCount="indefinite" begin="2.5s"/><animate attributeName="opacity" values="0.4;0.12;0.4" dur="7s" repeatCount="indefinite" begin="2.5s"/></circle>
+    <circle cx="550" cy="60"  r="1.8" fill="#a78bfa" opacity="0.45"><animate attributeName="cy" values="60;48;60" dur="5s" repeatCount="indefinite" begin="0.8s"/><animate attributeName="opacity" values="0.45;0.15;0.45" dur="5s" repeatCount="indefinite" begin="0.8s"/></circle>
+    <circle cx="1250" cy="580" r="1.3" fill="#c4b5fd" opacity="0.35"><animate attributeName="cy" values="580;568;580" dur="8.5s" repeatCount="indefinite" begin="3.5s"/><animate attributeName="opacity" values="0.35;0.1;0.35" dur="8.5s" repeatCount="indefinite" begin="3.5s"/></circle>
+    <circle cx="900" cy="550" r="1.0" fill="#34d399" opacity="0.3"><animate attributeName="cy" values="550;540;550" dur="6s" repeatCount="indefinite" begin="5s"/><animate attributeName="opacity" values="0.3;0.08;0.3" dur="6s" repeatCount="indefinite" begin="5s"/></circle>
+    <circle cx="280" cy="200" r="1.5" fill="#818cf8" opacity="0.4"><animate attributeName="cy" values="200;190;200" dur="7.2s" repeatCount="indefinite" begin="1.8s"/><animate attributeName="opacity" values="0.4;0.12;0.4" dur="7.2s" repeatCount="indefinite" begin="1.8s"/></circle>
+    <circle cx="760" cy="100" r="1.2" fill="#a78bfa" opacity="0.5"><animate attributeName="cy" values="100;88;100" dur="6.8s" repeatCount="indefinite" begin="0.3s"/><animate attributeName="opacity" values="0.5;0.18;0.5" dur="6.8s" repeatCount="indefinite" begin="0.3s"/></circle>
+    <circle cx="1050" cy="180" r="1.0" fill="#60a5fa" opacity="0.35"><animate attributeName="cy" values="180;170;180" dur="5.8s" repeatCount="indefinite" begin="4.2s"/><animate attributeName="opacity" values="0.35;0.1;0.35" dur="5.8s" repeatCount="indefinite" begin="4.2s"/></circle>
+    <circle cx="500" cy="400" r="1.4" fill="#c4b5fd" opacity="0.4"><animate attributeName="cy" values="400;388;400" dur="8.2s" repeatCount="indefinite" begin="2.2s"/><animate attributeName="opacity" values="0.4;0.12;0.4" dur="8.2s" repeatCount="indefinite" begin="2.2s"/></circle>
   </g>
 
-  <!-- CTA button -->
-  <rect x="80" y="440" rx="8" width="200" height="42" fill="#f59e0b"/>
-  <text x="180" y="467" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="14" font-weight="700" fill="#1a1a2e" text-anchor="middle">Star on GitHub</text>
-  <text x="300" y="466" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#64748b">15 分钟部署 · 零手工维护</text>
+  <!-- Badge -->
+  <rect x="80" y="55" rx="18" width="225" height="34" fill="#8b5cf6" fill-opacity="0.10" stroke="url(#badgeBorder)"/>
+  <circle cx="104" cy="72" r="5" fill="#a78bfa" filter="url(#glowSm)">
+    <animate attributeName="opacity" values="1;0.4;1" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <text x="118" y="78" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#c4b5fd">Open Source</text>
+  <text x="214" y="78" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#64748b">·</text>
+  <text x="224" y="78" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" fill="#c4b5fd" font-weight="600">OpenClaw</text>
+
+  <!-- Title -->
+  <text x="80" y="145" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="56" font-weight="800" fill="#f1f5f9" letter-spacing="-2">OpenClaw</text>
+  <text x="80" y="210" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="56" font-weight="800" fill="url(#titleGrad)" letter-spacing="-2">AI Daily</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="255" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="15" fill="#94a3b8" letter-spacing="0.3">全自动 AI 前沿日报 + 知识问答 · 每天 8 分钟 · 搜索→出题→批改→知识图谱</text>
+
+  <!-- Feature list with icons rendered as text -->
+  <g transform="translate(80, 290)" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13.5" fill="#cbd5e1">
+    <g>
+      <rect x="0" y="-2" rx="5" width="24" height="24" fill="#8b5cf6" opacity="0.14"/>
+      <text x="12" y="15" font-size="12" fill="#a78bfa" text-anchor="middle" font-family="system-ui,sans-serif">1</text>
+      <text x="34" y="14">SerpAPI 搜索全球 AI 新闻，深度阅读原文</text>
+    </g>
+    <g transform="translate(0, 32)">
+      <rect x="0" y="-2" rx="5" width="24" height="24" fill="#3b82f6" opacity="0.14"/>
+      <text x="12" y="15" font-size="12" fill="#60a5fa" text-anchor="middle" font-family="system-ui,sans-serif">2</text>
+      <text x="34" y="14">LLM 自动生成 10 道选择题（目标难度 60%）</text>
+    </g>
+    <g transform="translate(0, 64)">
+      <rect x="0" y="-2" rx="5" width="24" height="24" fill="#10b981" opacity="0.14"/>
+      <text x="12" y="15" font-size="12" fill="#34d399" text-anchor="middle" font-family="system-ui,sans-serif">3</text>
+      <text x="34" y="14">Telegram 推送 + 答题批改 + 盲区分析</text>
+    </g>
+    <g transform="translate(0, 96)">
+      <rect x="0" y="-2" rx="5" width="24" height="24" fill="#f59e0b" opacity="0.14"/>
+      <text x="12" y="15" font-size="12" fill="#fbbf24" text-anchor="middle" font-family="system-ui,sans-serif">4</text>
+      <text x="34" y="14">自动写入 Obsidian 知识图谱，双向链接</text>
+    </g>
+  </g>
+
+  <!-- CTA -->
+  <rect x="80" y="450" rx="9" width="208" height="44" fill="#f59e0b"/>
+  <text x="184" y="478" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="14.5" font-weight="700" fill="#0f172a" text-anchor="middle">Star on GitHub</text>
+  <text x="308" y="477" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="13.5" fill="#64748b">15 分钟部署 · 零手工维护</text>
 
   <!-- Right Panel -->
-  <rect x="840" y="40" rx="12" width="380" height="540" fill="#0f172a" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.1"/>
-  <text x="870" y="72" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="11" fill="#64748b" font-weight="600" letter-spacing="1.5">自动化流水线</text>
+  <rect x="850" y="30" rx="14" width="380" height="560" fill="#0c1225" fill-opacity="0.55" stroke="#6366f1" stroke-opacity="0.08"/>
+  <rect x="850" y="30" rx="14" width="380" height="560" fill="url(#nodeGlow)"/>
+
+  <text x="880" y="65" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="11" fill="#475569" font-weight="600" letter-spacing="2">工作流水线</text>
 
   <!-- Flow nodes -->
-  <g transform="translate(860, 90)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#8b5cf6" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#a78bfa" font-family="system-ui,sans-serif" text-anchor="middle">1</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">Cron 每日 20:00 触发</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">隔离会话自动启动</text></g>
-  <text x="1030" y="159" font-size="18" fill="#475569" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
+  <g transform="translate(870, 84)" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">
+    <!-- Row 1 -->
+    <rect x="0" y="0" rx="7" width="340" height="56" fill="#111827" fill-opacity="0.6" stroke="#6366f1" stroke-opacity="0.06"/>
+    <rect x="14" y="12" rx="6" width="32" height="32" fill="#8b5cf6" opacity="0.15"/>
+    <text x="30" y="33" font-size="14" fill="#a78bfa" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="600">1</text>
+    <text x="58" y="28" font-size="12.5" fill="#e2e8f0" font-weight="500">Cron 每日 20:00 触发</text>
+    <text x="58" y="44" font-size="10" fill="#4b5563">隔离会话自动启动</text>
 
-  <g transform="translate(860, 163)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#3b82f6" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#60a5fa" font-family="system-ui,sans-serif" text-anchor="middle">2</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">搜索 + 阅读全球新闻</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">SerpAPI → web_fetch 深度抓取</text></g>
-  <text x="1030" y="232" font-size="18" fill="#475569" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
+    <!-- Arrow -->
+    <text x="170" y="72" font-size="16" fill="#374151" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
 
-  <g transform="translate(860, 236)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#10b981" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#34d399" font-family="system-ui,sans-serif" text-anchor="middle">3</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">LLM 出题 + 推送</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">10 题 · 10 领域 · Telegram</text></g>
-  <text x="1030" y="305" font-size="18" fill="#475569" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
+    <!-- Row 2 -->
+    <g transform="translate(0, 78)">
+      <rect x="0" y="0" rx="7" width="340" height="56" fill="#111827" fill-opacity="0.6" stroke="#6366f1" stroke-opacity="0.06"/>
+      <rect x="14" y="12" rx="6" width="32" height="32" fill="#3b82f6" opacity="0.15"/>
+      <text x="30" y="33" font-size="14" fill="#60a5fa" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="600">2</text>
+      <text x="58" y="28" font-size="12.5" fill="#e2e8f0" font-weight="500">搜索 + 阅读全球新闻</text>
+      <text x="58" y="44" font-size="10" fill="#4b5563">SerpAPI → web_fetch 深度抓取</text>
+    </g>
 
-  <g transform="translate(860, 309)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#f59e0b" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#fbbf24" font-family="system-ui,sans-serif" text-anchor="middle">4</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">答题 → 批改 → 盲区分析</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">自动评分 + 学习建议</text></g>
-  <text x="1030" y="378" font-size="18" fill="#475569" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
+    <!-- Arrow -->
+    <text x="170" y="150" font-size="16" fill="#374151" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
 
-  <g transform="translate(860, 382)"><rect x="0" y="0" rx="6" width="340" height="54" fill="#1e293b" fill-opacity="0.5" stroke="#6366f1" stroke-opacity="0.06"/><rect x="12" y="11" rx="6" width="32" height="32" fill="#ec4899" opacity="0.18"/><text x="28" y="32" font-size="14" fill="#f472b6" font-family="system-ui,sans-serif" text-anchor="middle">5</text><text x="56" y="27" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#e2e8f0">Obsidian 知识图谱</text><text x="56" y="43" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="10" fill="#64748b">每日自动生长</text></g>
+    <!-- Row 3 -->
+    <g transform="translate(0, 156)">
+      <rect x="0" y="0" rx="7" width="340" height="56" fill="#111827" fill-opacity="0.6" stroke="#6366f1" stroke-opacity="0.06"/>
+      <rect x="14" y="12" rx="6" width="32" height="32" fill="#10b981" opacity="0.15"/>
+      <text x="30" y="33" font-size="14" fill="#34d399" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="600">3</text>
+      <text x="58" y="28" font-size="12.5" fill="#e2e8f0" font-weight="500">LLM 出题 + 推送</text>
+      <text x="58" y="44" font-size="10" fill="#4b5563">10 题 · 10 领域 · Telegram</text>
+    </g>
+
+    <!-- Arrow -->
+    <text x="170" y="228" font-size="16" fill="#374151" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
+
+    <!-- Row 4 -->
+    <g transform="translate(0, 234)">
+      <rect x="0" y="0" rx="7" width="340" height="56" fill="#111827" fill-opacity="0.6" stroke="#6366f1" stroke-opacity="0.06"/>
+      <rect x="14" y="12" rx="6" width="32" height="32" fill="#f59e0b" opacity="0.15"/>
+      <text x="30" y="33" font-size="14" fill="#fbbf24" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="600">4</text>
+      <text x="58" y="28" font-size="12.5" fill="#e2e8f0" font-weight="500">答题 → 批改 → 盲区分析</text>
+      <text x="58" y="44" font-size="10" fill="#4b5563">自动评分 + 学习建议</text>
+    </g>
+
+    <!-- Arrow -->
+    <text x="170" y="306" font-size="16" fill="#374151" font-family="system-ui,sans-serif" text-anchor="middle">↓</text>
+
+    <!-- Row 5 -->
+    <g transform="translate(0, 312)">
+      <rect x="0" y="0" rx="7" width="340" height="56" fill="#111827" fill-opacity="0.6" stroke="#6366f1" stroke-opacity="0.06"/>
+      <rect x="14" y="12" rx="6" width="32" height="32" fill="#ec4899" opacity="0.12"/>
+      <text x="30" y="33" font-size="14" fill="#f472b6" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="600">5</text>
+      <text x="58" y="28" font-size="12.5" fill="#e2e8f0" font-weight="500">Obsidian 知识图谱</text>
+      <text x="58" y="44" font-size="10" fill="#4b5563">每日自动生长</text>
+    </g>
+  </g>
 
   <!-- Footer -->
-  <text x="80" y="605" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="11" fill="#475569">Built with OpenClaw · Telegram · Obsidian · SerpAPI · DeepSeek</text>
-  <text x="1060" y="605" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="11" fill="#475569" text-anchor="end">github.com/fishflysky/openclaw-ai-daily</text>
+  <rect x="0" y="608" width="1280" height="32" fill="#000000" fill-opacity="0.2"/>
+  <line x1="80" y1="608" x2="1200" y2="608" stroke="#1e293b" stroke-opacity="0.5"/>
+  <text x="80" y="625" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="11" fill="#475569" letter-spacing="0.5">Built with</text>
+  <text x="158" y="625" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="11" fill="#c4b5fd" font-weight="600">OpenClaw</text>
+  <text x="230" y="625" font-family="system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="11" fill="#475569" letter-spacing="0.5">· Telegram · Obsidian · SerpAPI · DeepSeek</text>
+  <text x="1060" y="625" font-family="system-ui,'SF Mono','Fira Code',monospace" font-size="10.5" fill="#334155" text-anchor="end">github.com/fishflysky/openclaw-ai-daily</text>
 </svg>
