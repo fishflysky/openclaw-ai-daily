@@ -17,7 +17,8 @@
 
 截图内容：用户在 Telegram 中回复答案 `1③ 2① ...`，Agent 自动批改并回复得分。
 
-📸 建议截图：`screenshots/telegram-quiz-reply.png`
+📸 建议截图：<img width="750" height="1334" alt="5c4820bc1b29c28a9f3f3df4ecbe2655" src="https://github.com/user-attachments/assets/ef2ab719-44ba-409f-b271-9fc94fb00826" />
+
 
 ---
 
