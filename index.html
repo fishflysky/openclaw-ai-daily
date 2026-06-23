@@ -3,729 +3,731 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OpenClaw AI Daily · 你的个人 AI 前沿学习系统</title>
-<meta name="description" content="每天 8 分钟 · 10 道题 · 1 张知识图谱。用 AI Agent 自动化你的 AI 前沿知识学习。">
+<title>OpenClaw AI Daily — 你的 AI 前沿学习系统</title>
+<meta name="description" content="每天 8 分钟 · 10 道题 · 1 张知识图谱。AI Agent 全自动生成每日 AI 前沿日报。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  /* ===== Reset & Base ===== */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  /* ===== Reset & Variables ===== */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-  :root {
-    --bg: #060b14;
-    --bg2: #0b1322;
-    --bg-card: #0f1a2e;
-    --bg-card-hover: #132036;
-    --border: #1a2d4a;
-    --border-light: #243654;
-    --text: #bcc8dc;
-    --text-dim: #5e7090;
-    --text-bright: #e8edf5;
-    --accent: #00c896;
-    --accent2: #3b9eff;
-    --accent3: #8b5cf6;
-    --accent4: #f59e0b;
-    --gradient: linear-gradient(135deg, #00c896, #3b9eff);
-    --gradient-warm: linear-gradient(135deg, #8b5cf6, #f59e0b);
-    --radius: 14px;
-    --radius-sm: 8px;
-    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", "Consolas", monospace;
+  :root{
+    --bg:#f8fafc;
+    --bg-card:#fff;
+    --bg-alt:#f0f5ff;
+    --text:#1e293b;
+    --text-secondary:#64748b;
+    --text-muted:#94a3b8;
+    --border:#e2e8f0;
+    --accent:#059669;
+    --accent2:#2563eb;
+    --accent3:#7c3aed;
+    --accent4:#f59e0b;
+    --gradient:linear-gradient(135deg,#059669,#10b981);
+    --gradient-blue:linear-gradient(135deg,#2563eb,#6366f1);
+    --gradient-purple:linear-gradient(135deg,#7c3aed,#a855f7);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+    --shadow:0 4px 24px rgba(0,0,0,.06);
+    --shadow-lg:0 12px 48px rgba(0,0,0,.08);
+    --shadow-xl:0 24px 80px rgba(0,0,0,.1);
+    --radius-sm:10px;
+    --radius:16px;
+    --radius-lg:24px;
+    --transition:0.3s cubic-bezier(0.4,0,0.2,1);
+    --font-mono:"JetBrains Mono","Fira Code","Consolas",monospace;
   }
 
-  html { scroll-behavior: smooth; }
+  html{scroll-behavior:smooth; scroll-padding-top:80px}
 
-  body {
-    font-family: "Inter", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-    min-height: 100vh;
-    overflow-x: hidden;
+  body{
+    font-family:"Inter","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.7;
+    overflow-x:hidden;-webkit-font-smoothing:antialiased;
   }
+
+  /* ===== Scroll Animations ===== */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal-delay-1{transition-delay:.1s}
+  .reveal-delay-2{transition-delay:.2s}
+  .reveal-delay-3{transition-delay:.3s}
+  .reveal-delay-4{transition-delay:.4s}
 
   /* ===== Background ===== */
-  .bg-layer {
-    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  .bg-dots{
+    position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;
+    background-image:radial-gradient(#cbd5e1 1px,transparent 1px);
+    background-size:32px 32px;
   }
-  .bg-glow-1 {
-    position: absolute; width: 700px; height: 700px; top: -250px; left: -150px;
-    background: radial-gradient(circle, rgba(0,200,150,0.06) 0%, transparent 70%);
+  .bg-blob{
+    position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(120px);opacity:.3;
   }
-  .bg-glow-2 {
-    position: absolute; width: 600px; height: 600px; bottom: -200px; right: -150px;
-    background: radial-gradient(circle, rgba(59,158,255,0.05) 0%, transparent 70%);
-  }
-  .bg-glow-3 {
-    position: absolute; width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(139,92,246,0.04) 0%, transparent 70%);
-  }
-  .bg-grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(26,45,74,0.22) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(26,45,74,0.22) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse 65% 65% at 50% 40%, black 25%, transparent 75%);
-  }
+  .bg-blob-1{width:600px;height:600px;top:-200px;right:-100px;background:rgba(5,150,105,.12)}
+  .bg-blob-2{width:500px;height:500px;bottom:-150px;left:-100px;background:rgba(37,99,235,.1)}
+  .bg-blob-3{width:400px;height:400px;top:40%;left:50%;transform:translate(-50%,-50%);background:rgba(124,58,237,.08)}
 
-  /* ===== Layout ===== */
-  .container { max-width: 960px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+  .container{max-width:1000px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
 
   /* ===== Nav ===== */
-  .nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    backdrop-filter: blur(20px) saturate(1.5);
-    background: rgba(6,11,20,0.75);
-    border-bottom: 1px solid var(--border);
+  .nav{
+    position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;
+    background:rgba(255,255,255,.85);backdrop-filter:blur(20px) saturate(1.8);
+    border:1px solid var(--border);border-radius:999px;
+    padding:6px;display:flex;align-items:center;gap:4px;
+    box-shadow:0 2px 24px rgba(0,0,0,.05);
+    transition:var(--transition);
   }
-  .nav-inner {
-    max-width: 960px; margin: 0 auto; padding: 0 28px;
-    display: flex; align-items: center; justify-content: space-between; height: 56px;
+  .nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.1)}
+  .nav-logo{
+    display:flex;align-items:center;gap:8px;padding:8px 18px 8px 10px;
+    font-weight:700;font-size:.9rem;color:var(--text);text-decoration:none;
+    white-space:nowrap;
   }
-  .nav-logo {
-    display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: #fff;
-    text-decoration: none;
+  .nav-logo .icon{width:34px;height:34px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+  .nav-links{display:flex;gap:2px;list-style:none}
+  .nav-links a{
+    display:block;padding:8px 16px;border-radius:999px;font-size:.82rem;font-weight:500;
+    color:var(--text-secondary);text-decoration:none;transition:var(--transition);white-space:nowrap;
   }
-  .nav-logo .icon { font-size: 1.4rem; }
-  .nav-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .nav-links { display: flex; gap: 26px; list-style: none; align-items: center; }
-  .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.84rem; font-weight: 500; transition: var(--transition); }
-  .nav-links a:hover { color: var(--accent); }
-  .nav-gh {
-    display: flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: 999px;
-    font-size: 0.82rem; font-weight: 600; color: #fff; text-decoration: none;
-    background: rgba(255,255,255,0.06); border: 1px solid var(--border-light); transition: var(--transition);
+  .nav-links a:hover{color:var(--accent);background:rgba(5,150,105,.06)}
+  .nav-gh{
+    display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;
+    font-size:.82rem;font-weight:600;color:#fff;text-decoration:none;
+    background:var(--text);transition:var(--transition);white-space:nowrap;
   }
-  .nav-gh:hover { background: rgba(255,255,255,0.1); border-color: var(--accent2); }
+  .nav-gh:hover{background:#000;transform:scale(1.03)}
 
   /* ===== Hero ===== */
-  .hero { padding: 130px 0 70px; text-align: center; position: relative; }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px; padding: 6px 18px; border-radius: 999px;
-    font-size: 0.8rem; font-weight: 600; margin-bottom: 28px;
-    background: rgba(0,200,150,0.08); color: var(--accent); border: 1px solid rgba(0,200,150,0.18);
+  .hero{padding:160px 0 80px;text-align:center;position:relative}
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:999px;
+    font-size:.78rem;font-weight:600;margin-bottom:24px;
+    background:rgba(5,150,105,.08);color:var(--accent);border:1px solid rgba(5,150,105,.15);
+    animation:fadeInDown .6s ease;
   }
-  .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse-dot 2s infinite}
+  @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.8)}}
+  @keyframes fadeInDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
 
-  .hero h1 { font-size: 3rem; font-weight: 850; letter-spacing: -0.04em; color: #fff; line-height: 1.2; margin-bottom: 16px; }
-  .hero h1 .hl { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero .subtitle { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 10px; font-weight: 500; }
-  .hero .tagline {
-    font-size: 0.95rem; color: var(--text-dim); margin-bottom: 36px;
-    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+  .hero h1{font-size:3.2rem;font-weight:900;letter-spacing:-.04em;color:var(--text);line-height:1.15;margin-bottom:16px}
+  .hero h1 .hl{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .hero .subtitle{font-size:1.15rem;color:var(--text-secondary);margin-bottom:8px;font-weight:500}
+  .hero-tags{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+  .hero-tag{
+    padding:6px 16px;border-radius:999px;font-size:.8rem;font-weight:500;
+    background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);
   }
-  .hero .tagline span { background: rgba(255,255,255,0.04); padding: 4px 14px; border-radius: 999px; font-size: 0.82rem; border: 1px solid rgba(255,255,255,0.06); }
-  .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .hero-tag.accent{background:rgba(5,150,105,.06);color:var(--accent);border-color:rgba(5,150,105,.15)}
+  .hero-tag.blue{background:rgba(37,99,235,.06);color:var(--accent2);border-color:rgba(37,99,235,.15)}
 
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 999px;
-    font-size: 0.9rem; font-weight: 600; text-decoration: none; border: none; cursor: pointer;
-    transition: var(--transition); white-space: nowrap;
+  .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:999px;
+    font-size:.88rem;font-weight:600;text-decoration:none;cursor:pointer;transition:var(--transition);
+    white-space:nowrap;position:relative;overflow:hidden;
   }
-  .btn-primary { background: var(--gradient); color: #000; box-shadow: 0 4px 24px rgba(0,200,150,0.25); }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(0,200,150,0.4); }
-  .btn-outline { background: transparent; color: #fff; border: 1.5px solid var(--border-light); }
-  .btn-outline:hover { border-color: var(--accent2); background: rgba(59,158,255,0.06); }
-
-  /* ===== Section ===== */
-  .section { padding: 80px 0; }
-  .section-header { text-align: center; margin-bottom: 56px; }
-  .section-label {
-    display: inline-block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.12em; color: var(--accent); margin-bottom: 14px;
-  }
-  .section-title { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
-  .section-desc { font-size: 1rem; color: var(--text-dim); margin-top: 10px; max-width: 540px; margin-left: auto; margin-right: auto; }
-
-  /* ===== Pain Points ===== */
-  .pain-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .pain-card {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 30px 26px; text-align: center; transition: var(--transition); position: relative; overflow: hidden;
-  }
-  .pain-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-warm); opacity: 0.6; }
-  .pain-card:hover { background: var(--bg-card-hover); transform: translateY(-4px); }
-  .pain-card .emoji { font-size: 2.4rem; margin-bottom: 14px; display: block; }
-  .pain-card h4 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
-  .pain-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
-
-  /* ===== Solution ===== */
-  .solution-block {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 40px; text-align: center;
-    background-image: radial-gradient(ellipse 100% 100% at 50% 0%, rgba(0,200,150,0.04) 0%, transparent 60%);
-  }
-  .solution-block h3 { font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 32px; }
-
-  /* Pipeline */
-  .pipeline {
-    display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0;
-    margin-bottom: 20px;
-  }
-  .pipe-step {
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    padding: 18px 14px; min-width: 100px;
-  }
-  .pipe-icon {
-    width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem; background: var(--bg2); border: 1px solid var(--border-light);
-  }
-  .pipe-step p { font-size: 0.78rem; color: var(--text-dim); text-align: center; line-height: 1.4; max-width: 100px; }
-  .pipe-arrow { font-size: 1.2rem; color: var(--accent); margin: 0 -4px; align-self: center; }
-  .pipe-step.highlight .pipe-icon { background: rgba(0,200,150,0.1); border-color: rgba(0,200,150,0.35); }
-
-  .pipeline-note { font-size: 0.82rem; color: var(--accent); font-weight: 600; margin-top: 8px; }
-
-  /* ===== Features ===== */
-  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .feature-card {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 28px 24px; transition: var(--transition);
-  }
-  .feature-card:hover { background: var(--bg-card-hover); border-color: rgba(59,158,255,0.2); transform: translateY(-3px); }
-  .feature-icon {
-    width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem; margin-bottom: 16px;
-  }
-  .feature-icon.green { background: rgba(0,200,150,0.1); }
-  .feature-icon.blue { background: rgba(59,158,255,0.1); }
-  .feature-icon.purple { background: rgba(139,92,246,0.1); }
-  .feature-card h4 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
-  .feature-card p { font-size: 0.84rem; color: var(--text-dim); line-height: 1.6; }
-
-  /* ===== Knowledge Domains ===== */
-  .domain-table {
-    width: 100%; border-collapse: separate; border-spacing: 0;
-    border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
-  }
-  .domain-table th, .domain-table td { padding: 14px 18px; text-align: left; }
-  .domain-table thead th {
-    background: var(--bg-card); font-size: 0.78rem; font-weight: 700; color: var(--text-dim);
-    text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid var(--border);
-  }
-  .domain-table tbody td { font-size: 0.88rem; border-bottom: 1px solid var(--border); background: var(--bg2); }
-  .domain-table tbody tr:last-child td { border-bottom: none; }
-  .domain-table tbody tr:hover td { background: var(--bg-card-hover); }
-  .domain-num { color: var(--accent2); font-weight: 700; font-family: var(--font-mono); font-size: 0.82rem; }
-  .domain-name { font-weight: 600; color: var(--text-bright); }
-  .domain-focus { color: var(--text-dim); font-size: 0.84rem; }
-
-  /* ===== Architecture ===== */
-  .arch-block {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px;
-  }
-  .arch-diagram { text-align: center; }
-  .arch-box {
-    display: inline-block; padding: 14px 24px; border-radius: var(--radius-sm); margin: 6px;
-    font-weight: 600; font-size: 0.88rem;
-  }
-  .arch-box.primary { background: rgba(0,200,150,0.12); color: var(--accent); border: 1px solid rgba(0,200,150,0.25); }
-  .arch-box.secondary { background: rgba(59,158,255,0.1); color: var(--accent2); border: 1px solid rgba(59,158,255,0.2); }
-  .arch-box.tertiary { background: rgba(139,92,246,0.1); color: var(--accent3); border: 1px solid rgba(139,92,246,0.2); }
-  .arch-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
-  .arch-arrow-row { text-align: center; color: var(--accent); font-size: 0.9rem; margin: 6px 0; }
-
-  /* ===== Screenshots Gallery ===== */
-  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .gallery-item {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    overflow: hidden; cursor: pointer; transition: var(--transition); position: relative;
-  }
-  .gallery-item:hover { transform: translateY(-4px); border-color: rgba(59,158,255,0.3); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
-  .gallery-item img { width: 100%; display: block; aspect-ratio: 16/10; object-fit: cover; }
-  .gallery-caption {
-    padding: 14px 16px; font-size: 0.84rem; font-weight: 600; color: var(--text-bright);
-    text-align: center; background: var(--bg-card);
-  }
-  .gallery-full { grid-column: 1 / -1; }
-  .gallery-full img { aspect-ratio: 16/7; }
-
-  /* Lightbox */
-  .lightbox {
-    position: fixed; inset: 0; z-index: 999; background: rgba(6,11,20,0.92);
-    backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: opacity 0.3s;
-  }
-  .lightbox.active { opacity: 1; pointer-events: auto; }
-  .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: var(--radius); box-shadow: 0 24px 80px rgba(0,0,0,0.6); }
-  .lightbox-close {
-    position: absolute; top: 28px; right: 36px; width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(255,255,255,0.06); border: 1px solid var(--border-light); color: #fff;
-    font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: var(--transition);
-  }
-  .lightbox-close:hover { background: rgba(255,255,255,0.12); }
-  .lightbox-caption { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 0.95rem; font-weight: 600; background: rgba(0,0,0,0.6); padding: 8px 20px; border-radius: 999px; }
-
-  /* ===== Quick Start ===== */
-  .code-block {
-    background: #060b14; border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 24px 28px; overflow-x: auto; margin-top: 16px;
-  }
-  .code-block pre {
-    font-family: var(--font-mono); font-size: 0.84rem; color: var(--text-bright); line-height: 1.8;
-    margin: 0; white-space: pre;
-  }
-  .code-block .c { color: #5e7090; }
-  .code-block .k { color: #8b5cf6; }
-
-  .steps-list { counter-reset: step; list-style: none; margin-top: 24px; }
-  .steps-list li {
-    counter-increment: step; position: relative; padding-left: 48px; margin-bottom: 24px;
-  }
-  .steps-list li::before {
-    content: counter(step); position: absolute; left: 0; top: -2px;
-    width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 0.85rem; font-weight: 700; background: var(--gradient); color: #000;
-  }
-  .steps-list h4 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
-  .steps-list p { font-size: 0.85rem; color: var(--text-dim); }
+  .btn-primary{background:var(--gradient);color:#fff;box-shadow:0 4px 20px rgba(5,150,105,.25)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(5,150,105,.35)}
+  .btn-outline{background:var(--bg-card);color:var(--text);border:1.5px solid var(--border)}
+  .btn-outline:hover{border-color:var(--accent2);background:var(--bg-alt)}
+  .btn-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.4);transform:scale(0);animation:ripple .6s linear;pointer-events:none}
+  @keyframes ripple{to{transform:scale(4);opacity:0}}
 
   /* ===== Stats ===== */
-  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-  .stat-card {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 28px 20px; text-align: center; transition: var(--transition);
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:80px}
+  .stat-card{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:28px 20px;text-align:center;transition:var(--transition);cursor:default;
+    box-shadow:var(--shadow-sm);
   }
-  .stat-card:hover { background: var(--bg-card-hover); }
-  .stat-num { font-size: 2rem; font-weight: 800; color: #fff; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .stat-label { font-size: 0.82rem; color: var(--text-dim); margin-top: 6px; }
+  .stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .stat-icon{font-size:1.8rem;margin-bottom:8px}
+  .stat-num{font-size:2rem;font-weight:800;color:var(--accent)}
+  .stat-num.blue{color:var(--accent2)}
+  .stat-num.purple{color:var(--accent3)}
+  .stat-label{font-size:.82rem;color:var(--text-muted);margin-top:4px}
+
+  /* ===== Sections ===== */
+  .section{padding:80px 0}
+  .section-header{text-align:center;margin-bottom:56px}
+  .section-label{
+    display:inline-block;font-size:.76rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:.1em;color:var(--accent);margin-bottom:12px;
+  }
+  .section-title{font-size:2rem;font-weight:800;color:var(--text);letter-spacing:-.02em}
+  .section-desc{font-size:.95rem;color:var(--text-secondary);margin-top:10px;max-width:500px;margin-left:auto;margin-right:auto}
+
+  /* ===== Pain Cards ===== */
+  .pain-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .pain-card{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:32px 28px;text-align:center;transition:var(--transition);box-shadow:var(--shadow-sm);
+    cursor:default;
+  }
+  .pain-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+  .pain-card .icon-wrap{
+    width:56px;height:56px;border-radius:var(--radius-sm);margin:0 auto 18px;
+    display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  }
+  .pain-card:nth-child(1) .icon-wrap{background:rgba(245,158,11,.1)}
+  .pain-card:nth-child(2) .icon-wrap{background:rgba(37,99,235,.1)}
+  .pain-card:nth-child(3) .icon-wrap{background:rgba(124,58,237,.1)}
+  .pain-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;color:var(--text)}
+  .pain-card p{font-size:.85rem;color:var(--text-secondary);line-height:1.6}
+
+  /* ===== Pipeline ===== */
+  .pipeline-wrap{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:40px 32px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;
+  }
+  .pipeline-wrap::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--gradient);
+  }
+  .pipeline{display:flex;align-items:flex-start;justify-content:center;flex-wrap:wrap;gap:0;position:relative}
+  .pipe-step{
+    display:flex;flex-direction:column;align-items:center;gap:12px;padding:12px 8px;min-width:105px;
+    transition:var(--transition);cursor:default;
+  }
+  .pipe-step:hover{transform:translateY(-4px)}
+  .pipe-step .step-num{
+    width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:.7rem;font-weight:700;background:var(--bg-alt);color:var(--text-muted);
+  }
+  .pipe-icon{
+    width:56px;height:56px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;background:var(--bg-alt);border:1px solid var(--border);
+    z-index:1;position:relative;
+  }
+  .pipe-step.active .pipe-icon{background:rgba(5,150,105,.08);border-color:rgba(5,150,105,.3);box-shadow:0 0 0 6px rgba(5,150,105,.04)}
+  .pipe-step p{font-size:.75rem;color:var(--text-muted);text-align:center;line-height:1.4;max-width:90px}
+  .pipe-step p strong{display:block;color:var(--text);font-size:.8rem}
+  .pipe-arrow{font-size:1rem;color:var(--border);align-self:center;margin:0 -6px}
+  @media(max-width:900px){.pipeline{flex-direction:column;align-items:center}.pipe-arrow{transform:rotate(90deg);margin:-4px 0}}
+
+  /* ===== Feature Tabs ===== */
+  .tabs{display:flex;gap:4px;justify-content:center;margin-bottom:32px;flex-wrap:wrap}
+  .tab-btn{
+    padding:10px 22px;border-radius:999px;font-size:.84rem;font-weight:600;
+    background:transparent;color:var(--text-secondary);border:1px solid transparent;
+    cursor:pointer;transition:var(--transition);
+  }
+  .tab-btn:hover{color:var(--text);background:var(--bg-alt)}
+  .tab-btn.active{background:var(--bg-card);color:var(--accent);border-color:var(--border);box-shadow:var(--shadow-sm)}
+  .tab-panel{display:none;animation:fadeIn .4s ease}
+  .tab-panel.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .feature-card{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:28px;transition:var(--transition);box-shadow:var(--shadow-sm);
+    cursor:default;
+  }
+  .feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent}
+  .feature-card .badge{
+    display:inline-block;padding:4px 12px;border-radius:999px;font-size:.72rem;font-weight:600;margin-bottom:14px;
+  }
+  .feature-card .badge.green{background:rgba(5,150,105,.08);color:var(--accent)}
+  .feature-card .badge.blue{background:rgba(37,99,235,.08);color:var(--accent2)}
+  .feature-card .badge.purple{background:rgba(124,58,237,.08);color:var(--accent3)}
+  .feature-card h4{font-size:1rem;font-weight:700;margin-bottom:6px;color:var(--text)}
+  .feature-card p{font-size:.84rem;color:var(--text-secondary);line-height:1.6}
+
+  /* ===== Knowledge Matrix ===== */
+  .matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .matrix-item{
+    display:flex;align-items:flex-start;gap:14px;padding:18px 20px;
+    background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+    transition:var(--transition);cursor:default;
+  }
+  .matrix-item:hover{transform:translateX(4px);border-color:rgba(37,99,235,.2);box-shadow:var(--shadow)}
+  .matrix-num{
+    font-family:var(--font-mono);font-size:.8rem;font-weight:700;color:var(--accent2);
+    min-width:24px;padding-top:2px;
+  }
+  .matrix-content h4{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:2px}
+  .matrix-content p{font-size:.8rem;color:var(--text-muted)}
+
+  /* ===== Screenshot Carousel ===== */
+  .carousel-wrap{position:relative;overflow:hidden;border-radius:var(--radius-lg);box-shadow:var(--shadow-xl)}
+  .carousel-track{display:flex;transition:transform .5s cubic-bezier(0.4,0,0.2,1)}
+  .carousel-slide{min-width:100%}
+  .carousel-slide img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+  .carousel-slide .caption{
+    padding:16px 24px;background:var(--bg-card);font-size:.88rem;font-weight:600;
+    color:var(--text);text-align:center;border-top:1px solid var(--border);
+  }
+  .carousel-btn{
+    position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;
+    border-radius:50%;background:var(--bg-card);border:1px solid var(--border);
+    font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    z-index:2;transition:var(--transition);box-shadow:var(--shadow);
+  }
+  .carousel-btn:hover{background:var(--bg-alt);border-color:var(--accent2)}
+  .carousel-btn.prev{left:16px}
+  .carousel-btn.next{right:16px}
+  .carousel-dots{display:flex;gap:8px;justify-content:center;margin-top:16px}
+  .carousel-dot{
+    width:10px;height:10px;border-radius:50%;background:var(--border);
+    border:none;cursor:pointer;transition:var(--transition);
+  }
+  .carousel-dot.active{background:var(--accent);transform:scale(1.3)}
+
+  /* ===== Architecture ===== */
+  .arch-diagram{
+    display:grid;grid-template-columns:1fr 2fr 1fr;gap:20px;align-items:center;
+  }
+  .arch-col{display:flex;flex-direction:column;gap:12px}
+  .arch-box{
+    padding:16px 20px;border-radius:var(--radius-sm);text-align:center;
+    font-size:.84rem;font-weight:600;transition:var(--transition);cursor:default;
+    border:1px solid transparent;
+  }
+  .arch-box:hover{transform:scale(1.03)}
+  .arch-box.green{background:rgba(5,150,105,.08);color:var(--accent);border-color:rgba(5,150,105,.15)}
+  .arch-box.blue{background:rgba(37,99,235,.08);color:var(--accent2);border-color:rgba(37,99,235,.15)}
+  .arch-box.purple{background:rgba(124,58,237,.08);color:var(--accent3);border-color:rgba(124,58,237,.15)}
+  .arch-arrows{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:1.2rem;color:var(--border)}
+  @media(max-width:768px){.arch-diagram{grid-template-columns:1fr}.arch-arrows{flex-direction:row}}
+
+  /* ===== Code Block ===== */
+  .code-block{
+    background:#1e293b;border-radius:var(--radius);padding:28px 32px;overflow-x:auto;
+    position:relative;
+  }
+  .code-block pre{
+    font-family:var(--font-mono);font-size:.82rem;color:#e2e8f0;line-height:1.9;margin:0;
+  }
+  .code-block .c{color:#94a3b8}
+  .code-block .k{color:#a78bfa}
+  .code-block .s{color:#6ee7b7}
+  .copy-btn{
+    position:absolute;top:12px;right:16px;padding:6px 14px;border-radius:999px;
+    font-size:.76rem;font-weight:600;background:rgba(255,255,255,.1);color:#fff;
+    border:none;cursor:pointer;transition:var(--transition);
+  }
+  .copy-btn:hover{background:rgba(255,255,255,.2)}
+  .copy-btn.copied{background:var(--accent)}
+
+  /* ===== Steps ===== */
+  .steps{list-style:none;counter-reset:step;margin-top:20px}
+  .steps li{
+    counter-increment:step;position:relative;padding:20px 0 20px 52px;
+    border-bottom:1px solid var(--border);
+  }
+  .steps li:last-child{border-bottom:none}
+  .steps li::before{
+    content:counter(step);position:absolute;left:0;top:18px;
+    width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:.85rem;font-weight:700;background:var(--gradient);color:#fff;
+  }
+  .steps li h4{font-size:1rem;font-weight:700;color:var(--text)}
+  .steps li p{font-size:.85rem;color:var(--text-secondary);margin-top:2px}
 
   /* ===== CTA ===== */
-  .cta-section {
-    text-align: center; padding: 80px 0;
-    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,200,150,0.06) 0%, transparent 70%);
+  .cta{
+    text-align:center;padding:80px 0;
+    background:linear-gradient(180deg,transparent,rgba(5,150,105,.04) 50%,transparent);
   }
-  .cta-section h2 { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 14px; }
-  .cta-section p { font-size: 1rem; color: var(--text-dim); margin-bottom: 32px; }
-  .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .cta h2{font-size:2rem;font-weight:800;margin-bottom:12px}
+  .cta p{color:var(--text-secondary);margin-bottom:32px}
 
   /* ===== Footer ===== */
-  .footer {
-    text-align: center; padding: 44px 0 36px; border-top: 1px solid var(--border);
-    color: var(--text-dim); font-size: 0.82rem;
+  .footer{
+    text-align:center;padding:40px 0;border-top:1px solid var(--border);
+    color:var(--text-muted);font-size:.82rem;
   }
-  .footer a { color: var(--accent2); text-decoration: none; font-weight: 500; }
-  .footer a:hover { text-decoration: underline; }
+  .footer a{color:var(--accent2);text-decoration:none;font-weight:500}
+  .footer a:hover{text-decoration:underline}
 
   /* ===== Responsive ===== */
-  @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .hero h1 { font-size: 2rem; }
-    .hero .subtitle { font-size: 0.95rem; }
-    .section-title { font-size: 1.5rem; }
-    .pain-cards, .features-grid, .gallery { grid-template-columns: 1fr; }
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .gallery-full img { aspect-ratio: 16/10; }
-    .pipeline { flex-direction: column; }
-    .pipe-arrow { transform: rotate(90deg); margin: -6px 0; }
-    .domain-table { font-size: 0.78rem; }
-    .domain-table th, .domain-table td { padding: 10px 12px; }
+  @media(max-width:768px){
+    .nav{top:8px;padding:4px;border-radius:var(--radius-lg)}
+    .nav-links a{padding:6px 12px;font-size:.76rem}
+    .nav-logo{padding:6px 12px 6px 6px}
+    .nav-gh{padding:6px 14px;font-size:.76rem}
+    .hero{padding:120px 0 60px}
+    .hero h1{font-size:2rem}
+    .pain-cards,.features-grid{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .matrix{grid-template-columns:1fr}
+    .section-title{font-size:1.5rem}
   }
-  @media (max-width: 480px) {
-    .stats-row { grid-template-columns: 1fr; }
-  }
+  @media(max-width:480px){.stats{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- Background -->
-<div class="bg-layer">
-  <div class="bg-glow-1"></div>
-  <div class="bg-glow-2"></div>
-  <div class="bg-glow-3"></div>
-  <div class="bg-grid"></div>
-</div>
+<div class="bg-dots"></div>
+<div class="bg-blob bg-blob-1"></div>
+<div class="bg-blob bg-blob-2"></div>
+<div class="bg-blob bg-blob-3"></div>
 
 <!-- Navigation -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <span class="icon">🧠</span>
-      <span>OpenClaw AI Daily</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#why">痛点</a></li>
-      <li><a href="#features">特性</a></li>
-      <li><a href="#architecture">架构</a></li>
-      <li><a href="#screenshots">截图</a></li>
-      <li><a href="#quickstart">快速开始</a></li>
-    </ul>
-    <a href="https://github.com/fishflysky/openclaw-ai-daily" target="_blank" rel="noopener" class="nav-gh">
-      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
-      GitHub
-    </a>
-  </div>
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <span class="icon">🧠</span>
+    OpenClaw AI Daily
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">特性</a></li>
+    <li><a href="#how">流程</a></li>
+    <li><a href="#domains">领域</a></li>
+    <li><a href="#gallery">截图</a></li>
+    <li><a href="#start">开始</a></li>
+  </ul>
+  <a href="https://github.com/fishflysky/openclaw-ai-daily" target="_blank" rel="noopener" class="nav-gh">
+    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+    GitHub
+  </a>
 </nav>
 
 <main class="container">
 
-  <!-- ===== Hero ===== -->
+  <!-- Hero -->
   <section class="hero">
-    <div class="hero-badge"><span class="dot"></span> 全自动 AI Agent 驱动</div>
-    <h1>
-      每天 <span class="hl">8 分钟</span> · <span class="hl">10 道题</span> · <span class="hl">1 张知识图谱</span>
-    </h1>
-    <p class="subtitle">把"刷手机"变成"长知识"</p>
-    <p class="tagline">
-      <span>🤖 AI Agent 全自动</span>
-      <span>📱 Telegram 交互</span>
-      <span>🧠 Obsidian 知识图谱</span>
-      <span>🔍 个性化盲区分析</span>
-    </p>
+    <div class="hero-badge"><span class="dot"></span> AI Agent 全自动驱动</div>
+    <h1>每天 <span class="hl">8 分钟</span><br>把「刷手机」变成「长知识」</h1>
+    <p class="subtitle">AI 前沿知识，自动送到你的 Telegram</p>
+    <div class="hero-tags">
+      <span class="hero-tag accent">🤖 全自动 Agent</span>
+      <span class="hero-tag blue">📱 Telegram 交互</span>
+      <span class="hero-tag">🧠 Obsidian 图谱</span>
+      <span class="hero-tag">🔍 盲区分析</span>
+    </div>
     <div class="hero-actions">
-      <a href="https://github.com/fishflysky/openclaw-ai-daily" target="_blank" rel="noopener" class="btn btn-primary">
-        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
-        GitHub 仓库
+      <a href="https://github.com/fishflysky/openclaw-ai-daily" target="_blank" rel="noopener" class="btn btn-primary" onclick="ripple(event)">
+        ⭐ GitHub 上查看
       </a>
-      <a href="#quickstart" class="btn btn-outline">🚀 快速开始</a>
+      <a href="#start" class="btn btn-outline">🚀 快速开始</a>
     </div>
   </section>
 
-  <!-- ===== Stats ===== -->
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-num">10</div>
-      <div class="stat-label">知识领域覆盖</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">全自动</div>
-      <div class="stat-label">零人工干预</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">8 分钟</div>
-      <div class="stat-label">每日学习时长</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">🌐</div>
-      <div class="stat-label">全球 AI 资讯源</div>
-    </div>
+  <!-- Stats -->
+  <div class="stats reveal">
+    <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-num">10</div><div class="stat-label">知识领域覆盖</div></div>
+    <div class="stat-card"><div class="stat-icon">🤖</div><div class="stat-num blue" data-count="100">全自动</div><div class="stat-label">零人工干预</div></div>
+    <div class="stat-card"><div class="stat-icon">⏱️</div><div class="stat-num purple">8 分钟</div><div class="stat-label">每日学习时长</div></div>
+    <div class="stat-card"><div class="stat-icon">🌐</div><div class="stat-num">全球</div><div class="stat-label">AI 资讯源覆盖</div></div>
   </div>
 
-  <!-- ===== Pain Points ===== -->
-  <section class="section" id="why">
-    <div class="section-header">
-      <div class="section-label">为什么需要它</div>
-      <h2 class="section-title">你不是 AI 从业者<br>但 AI 正在改变你的工作</h2>
-      <p class="section-desc">想跟上前沿，却没有时间每天读几十篇论文——这是每个人的困境。</p>
+  <!-- Pain Points -->
+  <section class="section">
+    <div class="section-header reveal">
+      <div class="section-label">你不是 AI 从业者，但 AI 正在改变你的工作</div>
+      <h2 class="section-title">信息时代的三重困境</h2>
     </div>
     <div class="pain-cards">
-      <div class="pain-card">
-        <span class="emoji">📄</span>
-        <h4>信息过载</h4>
-        <p>每天上百篇 AI 论文和新闻，根本看不过来，筛选成本极高。</p>
+      <div class="pain-card reveal reveal-delay-1">
+        <div class="icon-wrap">📄</div>
+        <h3>信息过载</h3>
+        <p>每天数百篇 AI 论文与新闻，筛选成本极高，根本看不过来。</p>
       </div>
-      <div class="pain-card">
-        <span class="emoji">⏰</span>
-        <h4>时间碎片化</h4>
-        <p>工作之余没大块时间深度学习，知识更新总是落后一步。</p>
+      <div class="pain-card reveal reveal-delay-2">
+        <div class="icon-wrap">⏰</div>
+        <h3>时间碎片</h3>
+        <p>工作之余难有大块时间深度学习，知识更新总是慢人一步。</p>
       </div>
-      <div class="pain-card">
-        <span class="emoji">🧩</span>
-        <h4>知识零散</h4>
-        <p>东看一篇西看一篇，不成体系。过几天就忘了，无法沉淀。</p>
+      <div class="pain-card reveal reveal-delay-3">
+        <div class="icon-wrap">🧩</div>
+        <h3>学了就忘</h3>
+        <p>东看一篇西读一篇不成体系，过几天全部清零，毫无积累。</p>
       </div>
     </div>
   </section>
 
-  <!-- ===== Solution ===== -->
-  <section class="section">
-    <div class="solution-block">
-      <h3>🤖 AI Agent 全自动流水线 —— 你只负责答题</h3>
+  <!-- Pipeline -->
+  <section class="section" id="how">
+    <div class="section-header reveal">
+      <div class="section-label">一图胜千言</div>
+      <h2 class="section-title">你只负责答题，剩下的全交给 AI</h2>
+    </div>
+    <div class="pipeline-wrap reveal">
       <div class="pipeline">
-        <div class="pipe-step highlight">
+        <div class="pipe-step active">
+          <div class="step-num">1</div>
           <div class="pipe-icon">🔍</div>
-          <p>SerpAPI 搜索<br>全球 AI 新闻</p>
+          <p><strong>搜索资讯</strong>SerpAPI 全球搜索</p>
         </div>
         <span class="pipe-arrow">→</span>
         <div class="pipe-step">
+          <div class="step-num">2</div>
           <div class="pipe-icon">📖</div>
-          <p>抓取原文<br>深度阅读</p>
+          <p><strong>深度阅读</strong>抓取原文分析</p>
         </div>
         <span class="pipe-arrow">→</span>
         <div class="pipe-step">
-          <div class="pipe-icon">🧠</div>
-          <p>LLM 生成<br>10 道选择题</p>
+          <div class="step-num">3</div>
+          <div class="pipe-icon">✍️</div>
+          <p><strong>智能出题</strong>LLM 生成 10 题</p>
         </div>
         <span class="pipe-arrow">→</span>
         <div class="pipe-step">
+          <div class="step-num">4</div>
           <div class="pipe-icon">📱</div>
-          <p>Telegram<br>推送日报</p>
+          <p><strong>推送日报</strong>Telegram 即时送达</p>
         </div>
         <span class="pipe-arrow">→</span>
         <div class="pipe-step">
-          <div class="pipe-icon">❓</div>
-          <p>你在聊天里<br>回复答案</p>
+          <div class="step-num">5</div>
+          <div class="pipe-icon">💬</div>
+          <p><strong>聊天答题</strong>回复 1③2①...</p>
         </div>
         <span class="pipe-arrow">→</span>
         <div class="pipe-step">
-          <div class="pipe-icon">📊</div>
-          <p>自动批改<br>盲区分析</p>
+          <div class="step-num">6</div>
+          <div class="pipe-icon">🔍</div>
+          <p><strong>盲区分析</strong>错题→知识短板</p>
         </div>
         <span class="pipe-arrow">→</span>
-        <div class="pipe-step highlight">
+        <div class="pipe-step active">
+          <div class="step-num">7</div>
           <div class="pipe-icon">🗺️</div>
-          <p>写入 Obsidian<br>知识图谱</p>
+          <p><strong>知识图谱</strong>Obsidian 自动生长</p>
         </div>
       </div>
-      <p class="pipeline-note">每晚 20:00 自动触发 · 全自动 · 零操作</p>
     </div>
   </section>
 
-  <!-- ===== Features ===== -->
+  <!-- Features with Tabs -->
   <section class="section" id="features">
-    <div class="section-header">
-      <div class="section-label">核心亮点</div>
-      <h2 class="section-title">不只是日报，是学习系统</h2>
+    <div class="section-header reveal">
+      <div class="section-label">不只是日报，是完整的学习系统</div>
+      <h2 class="section-title">核心特性</h2>
     </div>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon green">🤖</div>
-        <h4>全自动 Agent 流水线</h4>
-        <p>搜索→阅读→出题→推送→批改→图谱，6 个环节全由 AI Agent 接力完成，无需任何人工操作。</p>
+
+    <div class="tabs reveal">
+      <button class="tab-btn active" onclick="switchTab('automation')">🤖 自动化</button>
+      <button class="tab-btn" onclick="switchTab('knowledge')">🧠 知识管理</button>
+      <button class="tab-btn" onclick="switchTab('interaction')">📱 交互体验</button>
+    </div>
+
+    <!-- Tab 1: Automation -->
+    <div class="tab-panel active" id="tab-automation">
+      <div class="features-grid">
+        <div class="feature-card"><div class="badge green">Agent 编排</div><h4>全自动流水线</h4><p>搜索→阅读→出题→推送→批改→图谱，6 环节 AI Agent 接力，每日 20:00 准时触发。</p></div>
+        <div class="feature-card"><div class="badge green">定时调度</div><h4>Cron 隔离执行</h4><p>独立会话运行新闻采集与内容生成，主会话专注答题交互，互不干扰。</p></div>
+        <div class="feature-card"><div class="badge green">智能降级</div><h4>多模型 Fallback</h4><p>DeepSeek V4 Pro 主力 + MiMo V2.5 备用，确保服务稳定可用。</p></div>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon blue">📊</div>
-        <h4>10 大知识领域</h4>
-        <p>产业趋势、技术方向、学术前沿、AI Agent、安全对齐……系统化覆盖 AI 全景知识地图。</p>
+    </div>
+
+    <!-- Tab 2: Knowledge -->
+    <div class="tab-panel" id="tab-knowledge">
+      <div class="features-grid">
+        <div class="feature-card"><div class="badge blue">知识图谱</div><h4>Obsidian 双向链接</h4><p>每道题自动生成概念页，通过 [[wiki-link]] 编织知识网络。</p></div>
+        <div class="feature-card"><div class="badge blue">盲区分析</div><h4>精准定位短板</h4><p>答错自动映射知识盲区，推荐针对性学习资源，哪里薄弱补哪里。</p></div>
+        <div class="feature-card"><div class="badge blue">可视化生长</div><h4>Graph View 见证积累</h4><p>在 Obsidian Graph View 中直观看到你的 AI 知识网络每天扩张。</p></div>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon purple">🧠</div>
-        <h4>Obsidian 知识图谱</h4>
-        <p>每道题自动生成概念页，通过双向链接编织知识网络，在 Graph View 中看到知识生长。</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon green">🎯</div>
-        <h4>个性化盲区分析</h4>
-        <p>答错的题自动映射到知识盲区，精准推荐学习资源，哪里薄弱补哪里。</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon blue">📱</div>
-        <h4>Telegram 原生交互</h4>
-        <p>像聊天一样答题，回复 <code>1③ 2① 3②...</code> 即可。下班路上、睡前刷一刷。</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon purple">⏰</div>
-        <h4>Cron 定时调度</h4>
-        <p>隔离会话独立执行，主会话处理答题交互。稳定可靠，每天准时送达。</p>
+    </div>
+
+    <!-- Tab 3: Interaction -->
+    <div class="tab-panel" id="tab-interaction">
+      <div class="features-grid">
+        <div class="feature-card"><div class="badge purple">聊天式答题</div><h4>原生 Telegram 体验</h4><p>像聊天一样回复 1③ 2① 3②...，无需离开 Telegram，碎片时间即可完成。</p></div>
+        <div class="feature-card"><div class="badge purple">即时反馈</div><h4>秒级批改报告</h4><p>提交答案后立即获得正确率统计 + 逐题解析，学习效果一目了然。</p></div>
+        <div class="feature-card"><div class="badge purple">持续进化</div><h4>学习报告追踪</h4><p>每周生成分析报告，追踪知识成长曲线，可视化你的进步。</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ===== Knowledge Domains ===== -->
+  <!-- Knowledge Domains -->
+  <section class="section" id="domains">
+    <div class="section-header reveal">
+      <div class="section-label">系统化覆盖 AI 全景</div>
+      <h2 class="section-title">10 大知识领域</h2>
+    </div>
+    <div class="matrix reveal">
+      <div class="matrix-item"><span class="matrix-num">01</span><div class="matrix-content"><h4>🏭 产业趋势</h4><p>元年判断、市场格局 → 宏观感知力</p></div></div>
+      <div class="matrix-item"><span class="matrix-num">02</span><div class="matrix-content"><h4>🔬 技术方向</h4><p>架构演进、推理优化 → 技术判断力</p></div></div>
+      <div class="matrix-item"><span class="matrix-num">03</span><div class="matrix-content"><h4>📢 重大发布</h4><p>模型/产品发布、开源动态 → 信息第一手</p></div></div>
+      <div class="matrix-item"><span class="matrix-num">04</span><div class="matrix-content"><h4>🏛️ 政策治理</h4><p>AI 监管、立法进展 → 合规意识</p></div></div>
+      <div class="matrix-item"><span class="matrix-num">05</span><div class="matrix-content"><h4>🏢 企业战略</h4><p>巨头布局、商业动向 → 商业敏感度</p></div></div>
+      <div class="matrix-item"><span class="matrix-num">06</span><div class="matrix-content"><h4>📚 学术前沿</h4><p>顶会论文、基准评测 → 学术视野</p></div></div>
+      <div class="matrix-item"><span class="matrix-num">07</span><div class="matrix-content"><h4>🤖 Agent 智能体</h4><p>工具使用、自主系统 → 前沿技术</p></div></div>
+      <div class="matrix-item"><span class="matrix-num">08</span><div class="matrix-content"><h4>🧬 AI+科学</h4><p>生物/化学/物理突破 → 交叉洞察</p></div></div>
+      <div class="matrix-item"><span class="matrix-num">09</span><div class="matrix-content"><h4>🔐 安全对齐</h4><p>AI 安全、越狱防御 → 安全意识</p></div></div>
+      <div class="matrix-item"><span class="matrix-num">10</span><div class="matrix-content"><h4>🌐 开源生态</h4><p>开源模型、工具链 → 动手能力</p></div></div>
+    </div>
+  </section>
+
+  <!-- Screenshot Carousel -->
+  <section class="section" id="gallery">
+    <div class="section-header reveal">
+      <div class="section-label">实际效果</div>
+      <h2 class="section-title">项目截图</h2>
+    </div>
+    <div class="reveal">
+      <div class="carousel-wrap">
+        <div class="carousel-track" id="carousel-track">
+          <div class="carousel-slide"><img src="screenshots/262f53d09e672e20c267f3a0285a648d.png" alt="日报推送" loading="lazy"><div class="caption">📮 Telegram 日报推送预览</div></div>
+          <div class="carousel-slide"><img src="screenshots/3e8270c867c1a6b7ad0edd03c2628c35.png" alt="答题交互" loading="lazy"><div class="caption">📝 10 道选择题 · 聊天式答题</div></div>
+          <div class="carousel-slide"><img src="screenshots/2748a0b113b9b7d99a47609ca56ea07b.png" alt="批改反馈" loading="lazy"><div class="caption">📊 答题批改 & 逐题解析</div></div>
+          <div class="carousel-slide"><img src="screenshots/5361db75bb3f51314dcbfbfb6bf67bc0.jpg" alt="分析报告" loading="lazy"><div class="caption">🔍 个性化盲区分析报告</div></div>
+          <div class="carousel-slide"><img src="screenshots/3a68b3700c4c98fd2366d3d489a93022.png" alt="知识图谱" loading="lazy"><div class="caption">🧠 Obsidian 知识图谱视图</div></div>
+          <div class="carousel-slide"><img src="screenshots/8de9776b01f6d5dfd6389d4d1fb71a21.png" alt="每日笔记" loading="lazy"><div class="caption">📋 每日笔记 · 知识网络入口</div></div>
+          <div class="carousel-slide"><img src="screenshots/91f2d0a7506a3159c637f0c035469917.png" alt="概念页" loading="lazy"><div class="caption">🗂️ 自动生成的概念页</div></div>
+          <div class="carousel-slide"><img src="screenshots/87d58c10c6028b097ef1c3af31511683.png" alt="知识生长" loading="lazy"><div class="caption">📈 知识网络持续生长</div></div>
+          <div class="carousel-slide"><img src="screenshots/3493f9593fcd0030eb2db0a85ea36a8a.png" alt="Cron配置" loading="lazy"><div class="caption">⚙️ Cron 调度配置</div></div>
+        </div>
+        <button class="carousel-btn prev" onclick="moveCarousel(-1)">‹</button>
+        <button class="carousel-btn next" onclick="moveCarousel(1)">›</button>
+      </div>
+      <div class="carousel-dots" id="carousel-dots"></div>
+    </div>
+  </section>
+
+  <!-- Architecture -->
   <section class="section">
-    <div class="section-header">
-      <div class="section-label">知识矩阵</div>
-      <h2 class="section-title">10 大领域，系统化成长</h2>
+    <div class="section-header reveal">
+      <div class="section-label">技术架构</div>
+      <h2 class="section-title">系统全景</h2>
     </div>
-    <table class="domain-table">
-      <thead>
-        <tr><th>#</th><th>领域</th><th>关注重点</th><th>学习价值</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="domain-num">01</td><td class="domain-name">🏭 产业趋势</td><td class="domain-focus">元年判断、市场格局</td><td class="domain-focus">宏观感知力</td></tr>
-        <tr><td class="domain-num">02</td><td class="domain-name">🔬 技术方向</td><td class="domain-focus">架构、训练范式、推理优化</td><td class="domain-focus">技术判断力</td></tr>
-        <tr><td class="domain-num">03</td><td class="domain-name">📢 重大发布</td><td class="domain-focus">模型/产品发布、开源动态</td><td class="domain-focus">信息第一手</td></tr>
-        <tr><td class="domain-num">04</td><td class="domain-name">🏛️ 政策治理</td><td class="domain-focus">AI 监管、立法进展</td><td class="domain-focus">合规意识</td></tr>
-        <tr><td class="domain-num">05</td><td class="domain-name">🏢 企业战略</td><td class="domain-focus">巨头布局、商业动向</td><td class="domain-focus">商业敏感度</td></tr>
-        <tr><td class="domain-num">06</td><td class="domain-name">📚 学术前沿</td><td class="domain-focus">顶会论文、基准评测</td><td class="domain-focus">学术视野</td></tr>
-        <tr><td class="domain-num">07</td><td class="domain-name">🤖 Agent 智能体</td><td class="domain-focus">工具使用、自主系统</td><td class="domain-focus">前沿技术</td></tr>
-        <tr><td class="domain-num">08</td><td class="domain-name">🧬 AI+科学</td><td class="domain-focus">生物/化学/物理突破</td><td class="domain-focus">交叉洞察</td></tr>
-        <tr><td class="domain-num">09</td><td class="domain-name">🔐 安全对齐</td><td class="domain-focus">AI 安全、越狱、红队</td><td class="domain-focus">安全意识</td></tr>
-        <tr><td class="domain-num">10</td><td class="domain-name">🌐 开源生态</td><td class="domain-focus">开源模型、工具链</td><td class="domain-focus">动手能力</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <!-- ===== Architecture ===== -->
-  <section class="section" id="architecture">
-    <div class="section-header">
-      <div class="section-label">系统架构</div>
-      <h2 class="section-title">技术全景</h2>
-    </div>
-
-    <div class="arch-block">
-      <div class="arch-diagram">
-        <div class="arch-row">
-          <span class="arch-box primary">🧠 OpenClaw Gateway</span>
-        </div>
-        <div class="arch-row">
-          <span class="arch-box secondary">⏰ Cron Job<br><small>每日 20:00 新闻采集</small></span>
-          <span class="arch-box secondary">💬 Main Session<br><small>答题 + 批改</small></span>
-          <span class="arch-box secondary">🤖 Subagent<br><small>新闻采集</small></span>
-          <span class="arch-box secondary">🤖 Subagent<br><small>深度阅读</small></span>
-        </div>
-        <div class="arch-arrow-row">▼ ▼ ▼</div>
-        <div class="arch-row">
-          <span class="arch-box tertiary">📱 Telegram<br><small>推送 + 答题交互</small></span>
-          <span class="arch-box tertiary">🧠 Obsidian<br><small>知识图谱存储</small></span>
-          <span class="arch-box tertiary">🔍 SerpAPI<br><small>全球新闻搜索</small></span>
-        </div>
+    <div class="arch-diagram reveal">
+      <div class="arch-col">
+        <div class="arch-box green">🧠 OpenClaw Gateway</div>
       </div>
-    </div>
-
-    <div style="margin-top: 28px;">
-      <div class="skill-group" style="margin-bottom: 20px;">
-        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">技术栈</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-          <span class="skill-tag">OpenClaw Runtime</span>
-          <span class="skill-tag accent2">SerpAPI</span>
-          <span class="skill-tag accent3">Telegram Bot API</span>
-          <span class="skill-tag">Obsidian</span>
-          <span class="skill-tag accent2">DeepSeek V4 Pro</span>
-          <span class="skill-tag accent3">MiMo V2.5</span>
-          <span class="skill-tag">Cron Scheduling</span>
-          <span class="skill-tag accent2">Web Fetch</span>
-        </div>
+      <div class="arch-arrows">──────▶</div>
+      <div class="arch-col">
+        <div class="arch-box blue">⏰ Cron Job · 每日 20:00</div>
+        <div class="arch-box blue">💬 Main Session · 答题批改</div>
+        <div class="arch-box blue">🤖 Subagent · 新闻采集</div>
+      </div>
+      <div class="arch-arrows">──────▶</div>
+      <div class="arch-col">
+        <div class="arch-box purple">📱 Telegram Bot</div>
+        <div class="arch-box purple">🧠 Obsidian 仓库</div>
+        <div class="arch-box purple">🔍 SerpAPI 搜索</div>
       </div>
     </div>
   </section>
 
-  <!-- ===== Screenshots ===== -->
-  <section class="section" id="screenshots">
-    <div class="section-header">
-      <div class="section-label">项目截图</div>
-      <h2 class="section-title">效果展示</h2>
-      <p class="section-desc">从 Telegram 日报推送到 Obsidian 知识图谱，全流程实拍</p>
-    </div>
-    <div class="gallery">
-      <div class="gallery-item" onclick="openLightbox('screenshots/262f53d09e672e20c267f3a0285a648d.png', '📮 Telegram 日报推送')">
-        <img src="screenshots/262f53d09e672e20c267f3a0285a648d.png" alt="Telegram 日报推送" loading="lazy">
-        <div class="gallery-caption">📮 Telegram 日报推送</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('screenshots/3e8270c867c1a6b7ad0edd03c2628c35.png', '📝 选择题交互答题')">
-        <img src="screenshots/3e8270c867c1a6b7ad0edd03c2628c35.png" alt="选择题交互答题" loading="lazy">
-        <div class="gallery-caption">📝 选择题交互答题</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('screenshots/2748a0b113b9b7d99a47609ca56ea07b.png', '📊 答题批改反馈')">
-        <img src="screenshots/2748a0b113b9b7d99a47609ca56ea07b.png" alt="答题批改反馈" loading="lazy">
-        <div class="gallery-caption">📊 答题批改反馈</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('screenshots/5361db75bb3f51314dcbfbfb6bf67bc0.jpg', '🔍 盲区分析报告')">
-        <img src="screenshots/5361db75bb3f51314dcbfbfb6bf67bc0.jpg" alt="盲区分析报告" loading="lazy">
-        <div class="gallery-caption">🔍 盲区分析报告</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('screenshots/3a68b3700c4c98fd2366d3d489a93022.png', '🧠 Obsidian 知识图谱')">
-        <img src="screenshots/3a68b3700c4c98fd2366d3d489a93022.png" alt="Obsidian 知识图谱" loading="lazy">
-        <div class="gallery-caption">🧠 Obsidian 知识图谱</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('screenshots/8de9776b01f6d5dfd6389d4d1fb71a21.png', '📋 每日笔记详情')">
-        <img src="screenshots/8de9776b01f6d5dfd6389d4d1fb71a21.png" alt="每日笔记详情" loading="lazy">
-        <div class="gallery-caption">📋 每日笔记详情</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('screenshots/91f2d0a7506a3159c637f0c035469917.png', '🗂️ 概念页自动生成')">
-        <img src="screenshots/91f2d0a7506a3159c637f0c035469917.png" alt="概念页自动生成" loading="lazy">
-        <div class="gallery-caption">🗂️ 概念页自动生成</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('screenshots/87d58c10c6028b097ef1c3af31511683.png', '📈 知识网络生长')">
-        <img src="screenshots/87d58c10c6028b097ef1c3af31511683.png" alt="知识网络生长" loading="lazy">
-        <div class="gallery-caption">📈 知识网络生长</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox('screenshots/3493f9593fcd0030eb2db0a85ea36a8a.png', '⚙️ Cron 调度配置')">
-        <img src="screenshots/3493f9593fcd0030eb2db0a85ea36a8a.png" alt="Cron 调度配置" loading="lazy">
-        <div class="gallery-caption">⚙️ Cron 调度配置</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-    <img id="lightbox-img" src="" alt="">
-    <div class="lightbox-caption" id="lightbox-caption"></div>
-  </div>
-
-  <!-- ===== Quick Start ===== -->
-  <section class="section" id="quickstart">
-    <div class="section-header">
+  <!-- Quick Start -->
+  <section class="section" id="start">
+    <div class="section-header reveal">
       <div class="section-label">三步部署</div>
       <h2 class="section-title">快速开始</h2>
-      <p class="section-desc">准备好 OpenClaw、Telegram Bot、SerpAPI Key，三步启动你的 AI 日报系统。</p>
+      <p class="section-desc">准备 OpenClaw + Telegram Bot + SerpAPI Key，三步启动你的 AI 日报。</p>
     </div>
-    <div class="card" style="padding: 36px 40px;">
-      <ol class="steps-list">
-        <li>
-          <h4>克隆仓库</h4>
-          <p>将项目克隆到本地，进入项目目录。</p>
-        </li>
-        <li>
-          <h4>配置环境</h4>
-          <p>复制配置文件模板，填入你的 Telegram Bot Token、SerpAPI Key 等信息。</p>
-        </li>
-        <li>
-          <h4>注册 Cron 任务</h4>
-          <p>使用 OpenClaw CLI 注册定时任务，明晚 20:00 你的第一篇 AI 日报就来了。</p>
-        </li>
+    <div class="reveal" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 40px;box-shadow:var(--shadow-sm)">
+      <ol class="steps">
+        <li><h4>克隆仓库</h4><p>将项目克隆到本地，进入项目目录。</p></li>
+        <li><h4>配置环境</h4><p>复制配置模板，填入 Telegram Bot Token 和 SerpAPI Key。</p></li>
+        <li><h4>注册 Cron 任务</h4><p>使用 OpenClaw CLI 注册定时任务。明晚 20:00 首篇日报送达！</p></li>
       </ol>
       <div class="code-block">
+        <button class="copy-btn" onclick="copyCode()">📋 复制</button>
         <pre><span class="c"># 1. 克隆项目</span>
 <span class="k">git clone</span> https://github.com/fishflysky/openclaw-ai-daily.git
 <span class="k">cd</span> openclaw-ai-daily
 
-<span class="c"># 2. 复制配置文件</span>
+<span class="c"># 2. 配置环境</span>
 <span class="k">cp</span> config/cron-job.example.json config/cron-job.json
-<span class="c"># 编辑 cron-job.json，填入你的 Telegram Bot Token、SerpAPI Key</span>
+<span class="c"># 编辑 cron-job.json → 填入你的 Bot Token 和 API Key</span>
 
-<span class="c"># 3. 注册 Cron 任务</span>
+<span class="c"># 3. 注册定时任务</span>
 <span class="k">openclaw cron add</span> --job "$(<span class="k">cat</span> config/cron-job.json)"
 
-<span class="c"># 🎉 完成！明晚 20:00 你的第一篇 AI 日报就来了</span></pre>
+<span class="c"># 🎉 完成！明晚 20:00见</span></pre>
       </div>
     </div>
   </section>
 
-  <!-- ===== CTA ===== -->
-  <section class="cta-section">
-    <h2>准备好跟上前沿了吗？</h2>
-    <p>每晚 8 分钟，让 AI 带你系统化学习 AI 前沿知识</p>
-    <div class="cta-buttons">
-      <a href="https://github.com/fishflysky/openclaw-ai-daily" target="_blank" rel="noopener" class="btn btn-primary">
-        ⭐ GitHub 上查看
-      </a>
-      <a href="https://github.com/fishflysky/openclaw-ai-daily/issues/new" target="_blank" rel="noopener" class="btn btn-outline">
-        💬 提交反馈
-      </a>
+  <!-- CTA -->
+  <section class="cta">
+    <h2 class="reveal">准备好跟上前沿了吗？</h2>
+    <p class="reveal reveal-delay-1">每晚 8 分钟，让 AI 带你系统化学习 AI 前沿知识</p>
+    <div class="reveal reveal-delay-2" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="https://github.com/fishflysky/openclaw-ai-daily" target="_blank" rel="noopener" class="btn btn-primary" onclick="ripple(event)">⭐ 立即开始</a>
+      <a href="https://github.com/fishflysky/openclaw-ai-daily/issues/new" target="_blank" rel="noopener" class="btn btn-outline">💬 提交反馈</a>
     </div>
   </section>
 
 </main>
 
 <footer class="footer">
-  <p>
-    🧠 <strong>OpenClaw AI Daily</strong> · Powered by <a href="https://openclaw.ai" target="_blank" rel="noopener">OpenClaw</a> + Telegram + Obsidian
-  </p>
-  <p style="margin-top: 6px;">
-    MIT License · Created by <a href="https://github.com/fishflysky" target="_blank" rel="noopener">fishflysky</a>
-  </p>
+  <p>🧠 <strong>OpenClaw AI Daily</strong> · Powered by OpenClaw + Telegram + Obsidian</p>
+  <p style="margin-top:6px">MIT License · Created by <a href="https://github.com/fishflysky" target="_blank" rel="noopener">fishflysky</a></p>
 </footer>
 
-<!-- Inline skill tag styles -->
-<style>
-  .skill-tag {
-    display: inline-block; padding: 6px 16px; border-radius: 999px;
-    font-size: 0.82rem; font-weight: 500;
-    background: rgba(0,200,150,0.08); color: #00c896;
-    border: 1px solid rgba(0,200,150,0.15);
-    transition: var(--transition);
-  }
-  .skill-tag.accent2 { background: rgba(59,158,255,0.08); color: #3b9eff; border-color: rgba(59,158,255,0.15); }
-  .skill-tag.accent3 { background: rgba(139,92,246,0.08); color: #8b5cf6; border-color: rgba(139,92,246,0.15); }
-</style>
-
-<!-- Lightbox Script -->
+<!-- Scripts -->
 <script>
-  function openLightbox(src, caption) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox-caption').textContent = caption;
-    document.getElementById('lightbox').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox(e) {
-    if (e && e.target !== document.getElementById('lightbox')) return;
-    document.getElementById('lightbox').classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') })
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' })
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
+
+// Nav shadow on scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20)
+})
+
+// Tab switching
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'))
+  document.querySelector(`[onclick="switchTab('${id}')"]`).classList.add('active')
+  document.getElementById('tab-'+id).classList.add('active')
+}
+
+// Button ripple
+function ripple(e) {
+  const btn = e.currentTarget
+  const rip = document.createElement('span')
+  rip.className = 'btn-ripple'
+  const rect = btn.getBoundingClientRect()
+  rip.style.left = (e.clientX - rect.left - 10) + 'px'
+  rip.style.top = (e.clientY - rect.top - 10) + 'px'
+  rip.style.width = rip.style.height = '20px'
+  btn.appendChild(rip)
+  rip.addEventListener('animationend', () => rip.remove())
+}
+
+// Copy code
+function copyCode() {
+  const code = `git clone https://github.com/fishflysky/openclaw-ai-daily.git
+cd openclaw-ai-daily
+cp config/cron-job.example.json config/cron-job.json
+openclaw cron add --job "$(cat config/cron-job.json)"`
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.querySelector('.copy-btn')
+    btn.textContent = '✅ 已复制'
+    btn.classList.add('copied')
+    setTimeout(() => { btn.textContent = '📋 复制'; btn.classList.remove('copied') }, 2000)
+  })
+}
+
+// Carousel
+let slideIdx = 0
+const totalSlides = document.querySelectorAll('.carousel-slide').length
+const dotsContainer = document.getElementById('carousel-dots')
+for(let i=0;i<totalSlides;i++) {
+  const dot = document.createElement('button')
+  dot.className = 'carousel-dot' + (i===0?' active':'')
+  dot.onclick = () => goToSlide(i)
+  dotsContainer.appendChild(dot)
+}
+function moveCarousel(dir) {
+  slideIdx = (slideIdx + dir + totalSlides) % totalSlides
+  updateCarousel()
+}
+function goToSlide(i) { slideIdx = i; updateCarousel() }
+function updateCarousel() {
+  document.getElementById('carousel-track').style.transform = `translateX(-${slideIdx * 100}%)`
+  document.querySelectorAll('.carousel-dot').forEach((d,i) => d.classList.toggle('active', i===slideIdx))
+}
+// Auto-advance
+setInterval(() => { if(document.querySelector('.carousel-wrap:hover')) return; moveCarousel(1) }, 5000)
+
+// Keyboard nav for carousel
+document.addEventListener('keydown', e => {
+  const wrap = document.querySelector('.carousel-wrap:hover') || document.querySelector('.carousel-wrap:focus-within')
+  if(!wrap && document.activeElement !== document.body) return
+  if(e.key === 'ArrowLeft') moveCarousel(-1)
+  if(e.key === 'ArrowRight') moveCarousel(1)
+})
 </script>
 
 </body>
