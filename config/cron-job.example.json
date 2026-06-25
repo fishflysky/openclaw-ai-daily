@@ -47,7 +47,7 @@ openclaw cron add --job "$(cat cron-job.json)"
 | `schedule.tz` | IANA 时区 | `Asia/Shanghai` |
 | `sessionTarget` | `isolated` — 独立会话，不污染主上下文 | `isolated` |
 | `delivery.channel` | 推送通道 | `telegram` |
-| `delivery.to` | 目标 Chat ID | `8944096717` |
+| `delivery.to` | 目标 Chat ID | `__YOUR_CHAT_ID__` |
 | `payload.fallbacks` | LLM fallback 链 | 见上方 |
 | `payload.timeoutSeconds` | 超时（含搜索+抓取） | 300 |
 
